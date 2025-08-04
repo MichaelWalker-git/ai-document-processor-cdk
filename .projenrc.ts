@@ -9,7 +9,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   jsiiVersion: "~5.0.0",
   name: "@horustech/ai-document-processor-cdk",
   projenrcTs: true,
-  repositoryUrl: "https://github.com/horustech/ai-document-processor-cdk.git",
+  repositoryUrl:
+    "https://github.com/MichaelWalker-git/ai-document-processor-cdk",
   description:
     "AWS CDK constructs for AI-powered document processing platform with SageMaker integration",
 
