@@ -5,7 +5,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: "Horustech",
   authorAddress: "info@horustech.com",
   cdkVersion: "2.100.0",
-  defaultReleaseBranch: "main",
+  defaultReleaseBranch: "master",
   jsiiVersion: "~5.0.0",
   name: "@horustech/ai-document-processor-cdk",
   projenrcTs: true,
