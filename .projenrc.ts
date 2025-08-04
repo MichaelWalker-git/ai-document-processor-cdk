@@ -100,7 +100,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     "dist/",
     "lib/",
     "*.tsbuildinfo",
-    ".github",
     ".idea",
   ],
 
