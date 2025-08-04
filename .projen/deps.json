@@ -61,11 +61,6 @@
       "type": "build"
     },
     {
-      "name": "aws-cdk",
-      "version": "2.173.2",
-      "type": "build"
-    },
-    {
       "name": "commit-and-tag-version",
       "version": "^12",
       "type": "build"
@@ -139,6 +134,16 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/aws-scheduler-alpha",
+      "version": "^2.145.0-alpha.0",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-cdk/integ-tests-alpha",
+      "version": "^2.136.1-alpha.0",
+      "type": "bundled"
+    },
+    {
       "name": "@aws-sdk/client-bedrock-runtime",
       "type": "bundled"
     },
@@ -199,6 +204,14 @@
       "type": "bundled"
     },
     {
+      "name": "aws-sdk",
+      "type": "bundled"
+    },
+    {
+      "name": "axios",
+      "type": "bundled"
+    },
+    {
       "name": "busboy",
       "type": "bundled"
     },
@@ -216,6 +229,7 @@
     },
     {
       "name": "google-auth-library",
+      "version": "9.15.1",
       "type": "bundled"
     },
     {
@@ -268,23 +282,13 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.100.0",
+      "version": "^2.208.0",
       "type": "peer"
     },
     {
       "name": "constructs",
       "version": "^10.0.5",
       "type": "peer"
-    },
-    {
-      "name": "@aws-cdk/aws-scheduler-alpha",
-      "version": "^2.145.0-alpha.0",
-      "type": "runtime"
-    },
-    {
-      "name": "@aws-cdk/integ-tests-alpha",
-      "version": "^2.136.1-alpha.0",
-      "type": "runtime"
     },
     {
       "name": "aws-cdk-lib",

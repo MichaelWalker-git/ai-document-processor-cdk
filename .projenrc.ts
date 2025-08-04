@@ -1,10 +1,10 @@
-import { awscdk } from 'projen';
+import { awscdk, javascript } from 'projen';
 import { NpmAccess } from 'projen/lib/javascript';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Horustech',
   authorAddress: 'info@horustech.com',
-  cdkVersion: '2.100.0',
+  cdkVersion: '2.208.0',
   defaultReleaseBranch: 'master',
   jsiiVersion: '~5.8.0',
   name: '@horustech/ai-document-processor-cdk',
@@ -18,6 +18,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   packageName: '@horustech/ai-document-processor-cdk',
   npmAccess: NpmAccess.PUBLIC,
   majorVersion: 1,
+
+  packageManager: javascript.NodePackageManager.NPM,
 
   // Keywords for npm discovery
   keywords: [
@@ -37,12 +39,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   deps: [
     'aws-cdk-lib@2.173.2',
     'constructs@^10.0.0',
-    '@aws-cdk/aws-scheduler-alpha@^2.145.0-alpha.0',
-    '@aws-cdk/integ-tests-alpha@^2.136.1-alpha.0',
   ],
 
   // Everything else (non-JSII) gets bundled into your published package:
   bundledDeps: [
+    '@aws-cdk/integ-tests-alpha@^2.136.1-alpha.0',
+    '@aws-cdk/aws-scheduler-alpha@^2.145.0-alpha.0',
     '@aws-sdk/client-bedrock-runtime',
     '@aws-sdk/client-cognito-identity-provider',
     '@aws-sdk/client-dynamodb',
@@ -75,6 +77,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'pdfjs-dist',
     'smartystreets-javascript-sdk',
     'uuid',
+    'aws-sdk',
+    'axios',
+    'google-auth-library@9.15.1',
   ],
 
   // devDependencies stay under devDeps:
@@ -92,7 +97,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@typescript-eslint/parser',
     '@types/jest',
     '@types/node',
-    'aws-cdk@2.173.2',
     '@aws-sdk/client-sagemaker-runtime',
     '@stylistic/eslint-plugin',
     'esbuild',
@@ -108,7 +112,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 
   // Peer dependencies (these will be required by consumers)
-  peerDeps: ['aws-cdk-lib@^2.100.0', 'constructs@^10.0.5'],
+  peerDeps: ['aws-cdk-lib@^2.208.0', 'constructs@^10.0.5'],
 
   // Publishing configuration
   releaseToNpm: true,
@@ -207,6 +211,11 @@ project.eslint?.addRules({
       varsIgnorePattern: '^_',
     },
   ],
+});
+
+project.addTask('install:lock', {
+  description: 'Install with lockfile',
+  exec: 'npm install',
 });
 
 project.synth();
