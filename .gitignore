@@ -60,5 +60,3 @@ lib/
 tsconfig.json
 !/API.md
 !/.projenrc.ts
-.idea
-.github
