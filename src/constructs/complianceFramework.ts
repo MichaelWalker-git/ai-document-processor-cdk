@@ -42,7 +42,7 @@ export interface ComplianceFrameworkProps {
 export class ComplianceFramework implements IAspect {
   private readonly props: ComplianceFrameworkProps;
 
-  constructor(scope: IConstruct, id: string, props: ComplianceFrameworkProps) {
+  constructor(_scope: IConstruct, _id: string, props: ComplianceFrameworkProps) {
     this.props = props;
   }
 

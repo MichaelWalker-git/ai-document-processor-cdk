@@ -27,7 +27,7 @@ export const handler = async (event: CloudFormationCustomResourceEvent) => {
       const userId = uuid();
 
       // Create user
-      const cognitoUser = await cognito.send(new AdminCreateUserCommand({
+      await cognito.send(new AdminCreateUserCommand({
         UserPoolId,
         Username,
         UserAttributes: [

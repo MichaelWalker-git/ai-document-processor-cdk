@@ -1,53 +1,112 @@
-import { awscdk } from "projen";
-import { NpmAccess } from "projen/lib/javascript";
+import { awscdk } from 'projen';
+import { NpmAccess } from 'projen/lib/javascript';
 
 const project = new awscdk.AwsCdkConstructLibrary({
-  author: "Horustech",
-  authorAddress: "info@horustech.com",
-  cdkVersion: "2.100.0",
-  defaultReleaseBranch: "master",
-  jsiiVersion: "~5.0.0",
-  name: "@horustech/ai-document-processor-cdk",
+  author: 'Horustech',
+  authorAddress: 'info@horustech.com',
+  cdkVersion: '2.100.0',
+  defaultReleaseBranch: 'master',
+  jsiiVersion: '~5.8.0',
+  name: '@horustech/ai-document-processor-cdk',
   projenrcTs: true,
   repositoryUrl:
-    "https://github.com/MichaelWalker-git/ai-document-processor-cdk",
+    'https://github.com/MichaelWalker-git/ai-document-processor-cdk',
   description:
-    "AWS CDK constructs for AI-powered document processing platform with SageMaker integration",
+    'AWS CDK constructs for AI-powered document processing platform with SageMaker integration',
 
   // Package configuration
-  packageName: "@horustech/ai-document-processor-cdk",
+  packageName: '@horustech/ai-document-processor-cdk',
   npmAccess: NpmAccess.PUBLIC,
   majorVersion: 1,
 
   // Keywords for npm discovery
   keywords: [
-    "aws",
-    "cdk",
-    "sagemaker",
-    "ai",
-    "document-processing",
-    "machine-learning",
-    "typescript",
-    "constructs",
-    "hipaa",
-    "compliance",
+    'aws',
+    'cdk',
+    'sagemaker',
+    'ai',
+    'document-processing',
+    'machine-learning',
+    'typescript',
+    'constructs',
+    'hipaa',
+    'compliance',
   ],
 
-  // Dependencies
-  deps: ["aws-cdk-lib@^2.100.0", "constructs@^10.0.5", "cdk-nag@^2.27.0"],
+  // Only JSII-enabled packages here:
+  deps: [
+    'aws-cdk-lib@2.173.2',
+    'constructs@^10.0.0',
+    '@aws-cdk/aws-scheduler-alpha@^2.145.0-alpha.0',
+    '@aws-cdk/integ-tests-alpha@^2.136.1-alpha.0',
+  ],
 
-  // Development dependencies
+  // Everything else (non-JSII) gets bundled into your published package:
+  bundledDeps: [
+    '@aws-sdk/client-bedrock-runtime',
+    '@aws-sdk/client-cognito-identity-provider',
+    '@aws-sdk/client-dynamodb',
+    '@aws-sdk/client-lambda',
+    '@aws-sdk/client-s3',
+    '@aws-sdk/client-ses',
+    '@aws-sdk/client-sfn',
+    '@aws-sdk/client-sns',
+    '@aws-sdk/client-ssm',
+    '@aws-sdk/lib-dynamodb',
+    '@aws-sdk/s3-request-presigner',
+    '@google-cloud/functions-framework',
+    '@google-cloud/local-auth',
+    '@google-cloud/pubsub',
+    '@opensearch-project/opensearch',
+    'busboy',
+    'canvas',
+    'cdk-nag',
+    'dotenv',
+    'google-auth-library',
+    'googleapis',
+    'joi',
+    'jsonwebtoken',
+    'jwks-rsa',
+    'mailparser',
+    'mime-types',
+    'p-limit',
+    'pdf-lib',
+    'pdf2pic',
+    'pdfjs-dist',
+    'smartystreets-javascript-sdk',
+    'uuid',
+  ],
+
+  // devDependencies stay under devDeps:
   devDeps: [
-    "@types/jest@^29.5.5",
-    "@types/node@^18.17.0",
-    "aws-cdk@^2.100.0",
-    "ts-node@^10.9.1",
-    "typescript@^5.2.2",
-    "constructs@10.0.5",
+    '@types/aws-lambda',
+    '@types/busboy',
+    '@types/jsonwebtoken',
+    '@types/mime-types',
+    '@types/pdf-parse',
+    '@types/sharp',
+    '@types/smartystreets-javascript-sdk',
+    '@typescript-eslint/eslint-plugin',
+    '@typescript-eslint/parser',
+    '@types/jest',
+    '@types/node',
+    'aws-cdk@2.173.2',
+    '@aws-sdk/client-sagemaker-runtime',
+    '@stylistic/eslint-plugin',
+    'esbuild',
+    'eslint',
+    'eslint-import-resolver-typescript',
+    'eslint-plugin-import',
+    'jest',
+    'promptfoo',
+    'sharp',
+    'ts-jest',
+    'ts-node',
+    'typescript',
   ],
 
   // Peer dependencies (these will be required by consumers)
-  peerDeps: ["aws-cdk-lib@^2.100.0", "constructs@^10.0.5"],
+  peerDeps: ['aws-cdk-lib@^2.100.0', 'constructs@^10.0.5'],
 
   // Publishing configuration
   releaseToNpm: true,
@@ -59,49 +118,45 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Build configuration
-  srcdir: "src",
-  testdir: "test",
-  libdir: "lib",
+  srcdir: 'src',
+  testdir: 'test',
+  libdir: 'lib',
 
   // Documentation
   docgen: true,
-  docsDirectory: "docs",
+  docsDirectory: 'docs',
 
   // ESLint and Prettier
   eslint: true,
-  prettier: true,
+  prettier: false,
   jest: false,
-
-  // Bundling configuration for Lambda functions
-  bundledDeps: ["aws-sdk"],
 
   // Additional scripts
   scripts: {
-    "build:watch": "tsc -w",
-    "deploy:dev": "cdk deploy --all --profile dev",
-    "deploy:prod": "cdk deploy --all --profile prod",
-    "diff:dev": "cdk diff --all --profile dev",
-    "diff:prod": "cdk diff --all --profile prod",
-    "synth:dev": "cdk synth --all --profile dev",
-    "synth:prod": "cdk synth --all --profile prod",
-    "docs:serve": "serve docs",
+    'build:watch': 'tsc -w',
+    'diff:prod': "cdk diff 'prod/*'",
+    'deploy:prod': "STAGE=prod cdk deploy 'prod/*'",
+    'deploy:prod:watch': "STAGE=prod cdk deploy 'prod/*' --watch",
+    'destroy:prod': "STAGE=prod cdk destroy 'prod/*'",
+    'synth:prod': 'STAGE=prod cdk synth',
+    'docs:serve': 'serve docs',
   },
 
   // Gitignore additions
   gitignore: [
-    "*.js",
-    "*.d.ts",
-    "node_modules/",
-    "cdk.out/",
-    ".env",
-    ".env.local",
-    ".env.*.local",
-    "coverage/",
-    ".nyc_output/",
-    "dist/",
-    "lib/",
-    "*.tsbuildinfo",
-    ".idea",
+    '*.js',
+    '*.d.ts',
+    'node_modules/',
+    'cdk.out/',
+    '.env',
+    '.env.local',
+    '.env.*.local',
+    'coverage/',
+    '.nyc_output/',
+    'dist/',
+    'lib/',
+    '*.tsbuildinfo',
+    '.idea',
   ],
 
   // Sample code generation
@@ -109,34 +164,46 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // License
   licensed: true,
-  license: "MIT",
+  license: 'MIT',
 
   // Auto-approve configuration for automated releases
   autoApproveOptions: {
-    allowedUsernames: ["github-actions[bot]", "dependabot[bot]"],
-    secret: "GITHUB_TOKEN",
+    allowedUsernames: ['github-actions[bot]', 'dependabot[bot]'],
+    secret: 'GITHUB_TOKEN',
   },
 
   // Stability
-  stability: "stable",
+  stability: 'stable',
 });
 
 // Add custom tasks
-project.addTask("package:all", {
-  description: "Package for all supported languages",
+project.addTask('package:all', {
+  description: 'Package for all supported languages',
   steps: [
-    { spawn: "package:js" },
-    { spawn: "package:python" },
-    { spawn: "package:java" },
-    { spawn: "package:dotnet" },
+    { spawn: 'package:js' },
+    { spawn: 'package:python' },
+    { spawn: 'package:java' },
+    { spawn: 'package:dotnet' },
   ],
 });
 
 project.testTask.reset('echo "⚠️  tests skipped"');
 
-project.addTask("docs:generate", {
-  description: "Generate API documentation",
-  steps: [{ exec: "typedoc --out docs src/index.ts" }],
+project.addTask('docs:generate', {
+  description: 'Generate API documentation',
+  steps: [{ exec: 'typedoc --out docs src/index.ts' }],
+});
+
+project.eslint?.addRules({
+  '@typescript-eslint/no-unused-vars': [
+    'error',
+    {
+      vars: 'all',
+      args: 'after-used',
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+    },
+  ],
 });
 
 project.synth();

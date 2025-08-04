@@ -1,13 +1,48 @@
 {
   "dependencies": [
     {
+      "name": "@aws-sdk/client-sagemaker-runtime",
+      "type": "build"
+    },
+    {
+      "name": "@stylistic/eslint-plugin",
+      "version": "^2",
+      "type": "build"
+    },
+    {
+      "name": "@types/aws-lambda",
+      "type": "build"
+    },
+    {
+      "name": "@types/busboy",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
-      "version": "^29.5.5",
+      "type": "build"
+    },
+    {
+      "name": "@types/jsonwebtoken",
+      "type": "build"
+    },
+    {
+      "name": "@types/mime-types",
       "type": "build"
     },
     {
       "name": "@types/node",
-      "version": "^18.17.0",
+      "type": "build"
+    },
+    {
+      "name": "@types/pdf-parse",
+      "type": "build"
+    },
+    {
+      "name": "@types/sharp",
+      "type": "build"
+    },
+    {
+      "name": "@types/smartystreets-javascript-sdk",
       "type": "build"
     },
     {
@@ -22,7 +57,7 @@
     },
     {
       "name": "aws-cdk",
-      "version": "^2.100.0",
+      "version": "2.173.2",
       "type": "build"
     },
     {
@@ -31,7 +66,7 @@
       "type": "build"
     },
     {
-      "name": "eslint-config-prettier",
+      "name": "esbuild",
       "type": "build"
     },
     {
@@ -43,12 +78,12 @@
       "type": "build"
     },
     {
-      "name": "eslint-plugin-prettier",
+      "name": "eslint",
+      "version": "^9",
       "type": "build"
     },
     {
-      "name": "eslint",
-      "version": "^9",
+      "name": "jest",
       "type": "build"
     },
     {
@@ -66,20 +101,28 @@
     },
     {
       "name": "jsii-rosetta",
-      "version": "~5.0.0",
+      "version": "~5.8.0",
       "type": "build"
     },
     {
       "name": "jsii",
-      "version": "~5.0.0",
-      "type": "build"
-    },
-    {
-      "name": "prettier",
+      "version": "~5.8.0",
       "type": "build"
     },
     {
       "name": "projen",
+      "type": "build"
+    },
+    {
+      "name": "promptfoo",
+      "type": "build"
+    },
+    {
+      "name": "sharp",
+      "type": "build"
+    },
+    {
+      "name": "ts-jest",
       "type": "build"
     },
     {
@@ -91,7 +134,131 @@
       "type": "build"
     },
     {
-      "name": "aws-sdk",
+      "name": "@aws-sdk/client-bedrock-runtime",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-cognito-identity-provider",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-dynamodb",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-lambda",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-s3",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-ses",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-sfn",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-sns",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-ssm",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/lib-dynamodb",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/s3-request-presigner",
+      "type": "bundled"
+    },
+    {
+      "name": "@google-cloud/functions-framework",
+      "type": "bundled"
+    },
+    {
+      "name": "@google-cloud/local-auth",
+      "type": "bundled"
+    },
+    {
+      "name": "@google-cloud/pubsub",
+      "type": "bundled"
+    },
+    {
+      "name": "@opensearch-project/opensearch",
+      "type": "bundled"
+    },
+    {
+      "name": "busboy",
+      "type": "bundled"
+    },
+    {
+      "name": "canvas",
+      "type": "bundled"
+    },
+    {
+      "name": "cdk-nag",
+      "type": "bundled"
+    },
+    {
+      "name": "dotenv",
+      "type": "bundled"
+    },
+    {
+      "name": "google-auth-library",
+      "type": "bundled"
+    },
+    {
+      "name": "googleapis",
+      "type": "bundled"
+    },
+    {
+      "name": "joi",
+      "type": "bundled"
+    },
+    {
+      "name": "jsonwebtoken",
+      "type": "bundled"
+    },
+    {
+      "name": "jwks-rsa",
+      "type": "bundled"
+    },
+    {
+      "name": "mailparser",
+      "type": "bundled"
+    },
+    {
+      "name": "mime-types",
+      "type": "bundled"
+    },
+    {
+      "name": "p-limit",
+      "type": "bundled"
+    },
+    {
+      "name": "pdf-lib",
+      "type": "bundled"
+    },
+    {
+      "name": "pdf2pic",
+      "type": "bundled"
+    },
+    {
+      "name": "pdfjs-dist",
+      "type": "bundled"
+    },
+    {
+      "name": "smartystreets-javascript-sdk",
+      "type": "bundled"
+    },
+    {
+      "name": "uuid",
       "type": "bundled"
     },
     {
@@ -105,18 +272,23 @@
       "type": "peer"
     },
     {
-      "name": "aws-cdk-lib",
-      "version": "^2.100.0",
+      "name": "@aws-cdk/aws-scheduler-alpha",
+      "version": "^2.145.0-alpha.0",
       "type": "runtime"
     },
     {
-      "name": "cdk-nag",
-      "version": "^2.27.0",
+      "name": "@aws-cdk/integ-tests-alpha",
+      "version": "^2.136.1-alpha.0",
+      "type": "runtime"
+    },
+    {
+      "name": "aws-cdk-lib",
+      "version": "2.173.2",
       "type": "runtime"
     },
     {
       "name": "constructs",
-      "version": "^10.0.5",
+      "version": "^10.0.0",
       "type": "runtime"
     }
   ],

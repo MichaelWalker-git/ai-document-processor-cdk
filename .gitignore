@@ -49,8 +49,6 @@ lib/
 !/.mergify.yml
 !/.github/workflows/upgrade-master.yml
 !/.github/pull_request_template.md
-!/.prettierignore
-!/.prettierrc.json
 !/test/
 !/tsconfig.dev.json
 !/src/

@@ -157,7 +157,7 @@ export const EXTRACTION_FIELDS: Record<string, ExtractionField[]> = {
 // All extraction fields
 export const ALL_EXTRACTION_FIELDS: ExtractionField[] = [];
 
-Object.entries(EXTRACTION_FIELDS).forEach(([category, fields]) => {
+Object.entries(EXTRACTION_FIELDS).forEach(([_category, fields]) => {
   ALL_EXTRACTION_FIELDS.push(...fields);
 });
 

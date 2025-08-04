@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import Busboy from 'busboy';
+import * as Busboy from 'busboy';
 import { LambdaHandlerEvent } from './types';
 
 type File = {

@@ -8,11 +8,6 @@ import { Construct } from 'constructs';
 import { KmsStack } from './KmsStack';
 import { StackProps } from '../../lib/backend-app-stack';
 import { createDefaultLambdaRole, getCdkConstructId, getPolicyStatement } from '../../shared/helpers';
-import { Labels } from '../../shared/labels';
-
-interface IProps extends cdk.StackProps {
-  labels: Labels;
-}
 
 const IS_CDK_DEPLOY = process.env.DEPLOYMENT_TYPE === 'CDK';
 
@@ -23,7 +18,7 @@ export class S3Stack extends cdk.Stack {
   public readonly outputBucket: Bucket;
   public readonly sageMakerAsyncBucket: Bucket;
 
-  constructor(scope: Construct, id: string, args: StackProps, props: IProps) {
+  constructor(scope: Construct, id: string, args: StackProps) {
     super(scope, id);
 
     const labels = args.labels;

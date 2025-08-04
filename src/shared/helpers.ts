@@ -1,5 +1,5 @@
 import { Names, RemovalPolicy } from 'aws-cdk-lib';
-import { FlowLog, FlowLogDestination, FlowLogResourceType, IVpc, Vpc } from 'aws-cdk-lib/aws-ec2';
+import { FlowLog, FlowLogDestination, FlowLogResourceType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { IPrincipal, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { Key } from 'aws-cdk-lib/aws-kms';

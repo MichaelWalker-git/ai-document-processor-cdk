@@ -3,7 +3,6 @@ import { AuthorizationType, LambdaIntegration, RestApi, CognitoUserPoolsAuthoriz
 import { UserPool } from 'aws-cdk-lib/aws-cognito';
 import { IVpc, SecurityGroup, Port } from 'aws-cdk-lib/aws-ec2';
 import { Key } from 'aws-cdk-lib/aws-kms';
-import { NodejsFunctionProps } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { HttpMethods } from 'aws-cdk-lib/aws-s3';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
@@ -33,7 +32,7 @@ export class FileApiStack extends NestedStack {
   public readonly kmsKey: Key;
   public readonly userPool: UserPool;
 
-  constructor(scope: Construct, id: string, props: NestedApiStackProps, lambdaProps?: NodejsFunctionProps) {
+  constructor(scope: Construct, _id: string, props: NestedApiStackProps) {
     const stackName = getCdkConstructId({ context: 'file-api', resourceName: 'stack' }, scope);
     super(scope, stackName);
 

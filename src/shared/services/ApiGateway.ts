@@ -28,13 +28,13 @@ export interface EndpointParams {
  * Wrapper for adding Rest API related resources
  */
 class ApiGateway {
-  private readonly scope: Construct;
-  private readonly api: IRestApi;
-  private readonly authorizer?: TokenAuthorizer | CfnAuthorizer;
-  private readonly requestModels?: Record<string, Model>;
+  public readonly scope: Construct;
+  public readonly api: IRestApi;
+  public readonly authorizer?: TokenAuthorizer | CfnAuthorizer;
+  public readonly requestModels?: Record<string, Model>;
 
   methods: Method[] = [];
-  private readonly addedCorsPaths = new Set();
+  public readonly addedCorsPaths = new Set();
 
   constructor(scope: Construct, props: Record<any, any> & { stackName: string }) {
     this.scope = scope;

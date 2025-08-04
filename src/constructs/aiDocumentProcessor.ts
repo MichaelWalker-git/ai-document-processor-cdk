@@ -1,4 +1,4 @@
-import { Aspects, Duration, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
+import { Aspects, Duration, RemovalPolicy } from 'aws-cdk-lib';
 import { RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { IUserPool } from 'aws-cdk-lib/aws-cognito';
 import { IVpc } from 'aws-cdk-lib/aws-ec2';

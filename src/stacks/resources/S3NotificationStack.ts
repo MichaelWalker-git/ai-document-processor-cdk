@@ -42,7 +42,6 @@ export class S3NotificationStack extends NestedStack {
     const outputBucketName = Fn.importValue(importOutputBucketName);
 
     const inputBucket = Bucket.fromBucketName(this, 'InputBucket', inputBucketName);
-    const outputBucket = Bucket.fromBucketName(this, 'OutputBucket', outputBucketName);
 
     const importProcessingStateMachineArn = getCdkConstructId({ context: 'processing', resourceName: 'state-machine-arn' }, this);
     const processingStateMachineArn = Fn.importValue(importProcessingStateMachineArn);

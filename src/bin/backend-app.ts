@@ -3,9 +3,9 @@ import { config } from 'dotenv';
 config();
 
 import * as cdk from 'aws-cdk-lib';
-import { ProdStage } from '../lib/stages';
 import { STAGES } from '../shared/constants';
 import { Labels } from '../shared/labels';
+import { ProdStage } from "../lib/stages";
 
 // Environment variables with defaults for marketplace deployment
 const CDK_DEFAULT_REGION = process.env.CDK_DEFAULT_REGION || 'us-east-1';

@@ -5,8 +5,6 @@ import {
 import { UserPool } from 'aws-cdk-lib/aws-cognito';
 import { IVpc, SecurityGroup } from 'aws-cdk-lib/aws-ec2';
 import { Key } from 'aws-cdk-lib/aws-kms';
-import { NodejsFunctionProps } from 'aws-cdk-lib/aws-lambda-nodejs';
-import { Domain } from 'aws-cdk-lib/aws-opensearchservice';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import {
@@ -22,13 +20,12 @@ export class ApiStack extends NestedStack {
   public readonly outputBucketName: string;
   public readonly tableName: string;
   public readonly tableArn: string;
-  public readonly openSearchDomain: Domain;
   public readonly vpc: IVpc;
   public readonly kmsKey: Key;
   public readonly securityGroup: SecurityGroup;
   public readonly userPool: UserPool;
 
-  constructor(scope: Construct, id: string, props: ApiStackProps, lambdaProps?: NodejsFunctionProps) {
+  constructor(scope: Construct, _id: string, props: ApiStackProps) {
     const stackName = getCdkConstructId({ context: 'api', resourceName: 'stack' }, scope);
     super(scope, stackName);
 

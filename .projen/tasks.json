@@ -109,27 +109,27 @@
         }
       ]
     },
-    "deploy:dev": {
-      "name": "deploy:dev",
-      "steps": [
-        {
-          "exec": "cdk deploy --all --profile dev"
-        }
-      ]
-    },
     "deploy:prod": {
       "name": "deploy:prod",
       "steps": [
         {
-          "exec": "cdk deploy --all --profile prod"
+          "exec": "STAGE=prod cdk deploy 'prod/*'"
         }
       ]
     },
-    "diff:dev": {
-      "name": "diff:dev",
+    "deploy:prod:watch": {
+      "name": "deploy:prod:watch",
       "steps": [
         {
-          "exec": "cdk diff --all --profile dev"
+          "exec": "STAGE=prod cdk deploy 'prod/*' --watch"
+        }
+      ]
+    },
+    "destroy:prod": {
+      "name": "destroy:prod",
+      "steps": [
+        {
+          "exec": "STAGE=prod cdk destroy 'prod/*'"
         }
       ]
     },
@@ -137,7 +137,7 @@
       "name": "diff:prod",
       "steps": [
         {
-          "exec": "cdk diff --all --profile prod"
+          "exec": "cdk diff 'prod/*'"
         }
       ]
     },
@@ -302,19 +302,11 @@
         }
       ]
     },
-    "synth:dev": {
-      "name": "synth:dev",
-      "steps": [
-        {
-          "exec": "cdk synth --all --profile dev"
-        }
-      ]
-    },
     "synth:prod": {
       "name": "synth:prod",
       "steps": [
         {
-          "exec": "cdk synth --all --profile prod"
+          "exec": "STAGE=prod cdk synth"
         }
       ]
     },
@@ -352,13 +344,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jsii-diff,jsii-pacmak,prettier,projen,ts-node,typescript,aws-sdk"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@aws-sdk/client-sagemaker-runtime,@types/aws-lambda,@types/busboy,@types/jest,@types/jsonwebtoken,@types/mime-types,@types/node,@types/pdf-parse,@types/sharp,@types/smartystreets-javascript-sdk,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-pacmak,projen,promptfoo,sharp,ts-jest,ts-node,typescript,@aws-sdk/client-bedrock-runtime,@aws-sdk/client-cognito-identity-provider,@aws-sdk/client-dynamodb,@aws-sdk/client-lambda,@aws-sdk/client-s3,@aws-sdk/client-ses,@aws-sdk/client-sfn,@aws-sdk/client-sns,@aws-sdk/client-ssm,@aws-sdk/lib-dynamodb,@aws-sdk/s3-request-presigner,@google-cloud/functions-framework,@google-cloud/local-auth,@google-cloud/pubsub,@opensearch-project/opensearch,busboy,canvas,cdk-nag,dotenv,google-auth-library,googleapis,joi,jsonwebtoken,jwks-rsa,mailparser,mime-types,p-limit,pdf-lib,pdf2pic,pdfjs-dist,smartystreets-javascript-sdk,uuid"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk commit-and-tag-version eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii prettier projen ts-node typescript aws-sdk aws-cdk-lib constructs cdk-nag"
+          "exec": "yarn upgrade @aws-sdk/client-sagemaker-runtime @stylistic/eslint-plugin @types/aws-lambda @types/busboy @types/jest @types/jsonwebtoken @types/mime-types @types/node @types/pdf-parse @types/sharp @types/smartystreets-javascript-sdk @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii projen promptfoo sharp ts-jest ts-node typescript @aws-sdk/client-bedrock-runtime @aws-sdk/client-cognito-identity-provider @aws-sdk/client-dynamodb @aws-sdk/client-lambda @aws-sdk/client-s3 @aws-sdk/client-ses @aws-sdk/client-sfn @aws-sdk/client-sns @aws-sdk/client-ssm @aws-sdk/lib-dynamodb @aws-sdk/s3-request-presigner @google-cloud/functions-framework @google-cloud/local-auth @google-cloud/pubsub @opensearch-project/opensearch busboy canvas cdk-nag dotenv google-auth-library googleapis joi jsonwebtoken jwks-rsa mailparser mime-types p-limit pdf-lib pdf2pic pdfjs-dist smartystreets-javascript-sdk uuid aws-cdk-lib constructs @aws-cdk/aws-scheduler-alpha @aws-cdk/integ-tests-alpha"
         },
         {
           "exec": "npx projen"

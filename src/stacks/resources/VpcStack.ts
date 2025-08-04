@@ -44,7 +44,7 @@ export class VpcStack extends NestedStack {
     });
 
     // Skip VPC flow logs for existing VPC (may already be configured)
-    const { flowLog, flowLogRole } = createVpcCloudwatchLogs({
+    const { flowLogRole } = createVpcCloudwatchLogs({
       scope: this,
       vpc: this.vpc as Vpc,
       kmsKey: this.kmsKey,
