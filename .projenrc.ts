@@ -79,6 +79,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // devDependencies stay under devDeps:
   devDeps: [
+    'aws-cdk-lib@2.173.2',
+    'constructs@^10.0.5',
     '@types/aws-lambda',
     '@types/busboy',
     '@types/jsonwebtoken',
@@ -157,6 +159,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'lib/',
     '*.tsbuildinfo',
     '.idea',
+    '!src/lib/',
   ],
 
   // Sample code generation

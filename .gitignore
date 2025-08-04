@@ -42,6 +42,7 @@ dist/
 lib/
 *.tsbuildinfo
 .idea
+!src/lib/
 !/.github/workflows/build.yml
 /dist/changelog.md
 /dist/version.txt
