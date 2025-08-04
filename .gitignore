@@ -41,6 +41,8 @@ coverage/
 dist/
 lib/
 *.tsbuildinfo
+.github
+.idea
 !/.github/workflows/build.yml
 /dist/changelog.md
 /dist/version.txt
