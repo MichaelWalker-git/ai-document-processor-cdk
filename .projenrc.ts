@@ -185,6 +185,30 @@ const project = new awscdk.AwsCdkConstructLibrary({
   stability: 'stable',
 });
 
+// CRITICAL: Include lambda assets in the published package
+project.addFields({
+  files: [
+    'lib/**/*',
+    'src/**/*',
+    '!src/**/*.ts', // Exclude source TS files since we include compiled JS
+    '*.md',
+    'LICENSE',
+  ],
+});
+
+project.addTask('copy-assets', {
+  description: 'Copy lambda and other assets to lib directory',
+  steps: [
+    {
+      exec: 'mkdir -p lib/resources',
+    },
+    {
+      exec: 'cp -r src/resources/* lib/resources/ 2>/dev/null || true',
+    },
+  ],
+});
+
+
 // Add custom tasks
 project.addTask('package:all', {
   description: 'Package for all supported languages',
