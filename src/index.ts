@@ -7,5 +7,3 @@ export * from './shared';
 export { StackProps, App, Stack, Stage } from 'aws-cdk-lib';
 export { Construct } from 'constructs';
 
-// Version information
-export const VERSION = '1.0.0';
