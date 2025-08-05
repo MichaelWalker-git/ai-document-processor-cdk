@@ -1,6 +1,92 @@
-import { Aspects, IAspect, Tags } from 'aws-cdk-lib';
+import { Aspects, IAspect, Tags, Stack, StackProps } from 'aws-cdk-lib';
+
+import { RestApi } from 'aws-cdk-lib/aws-apigateway';
+import { IUserPool } from 'aws-cdk-lib/aws-cognito';
+import { IVpc } from 'aws-cdk-lib/aws-ec2';
+import { IKey } from 'aws-cdk-lib/aws-kms';
+import { IBucket } from 'aws-cdk-lib/aws-s3';
 import { AwsSolutionsChecks, HIPAASecurityChecks, NIST80053R5Checks, PCIDSS321Checks } from 'cdk-nag';
-import { IConstruct } from 'constructs';
+import { Construct, IConstruct } from 'constructs';
+
+export interface Labels {
+  environment: string;
+  name(): string;
+}
+
+export interface SageMakerConfig {
+  modelName: string;
+  instanceType: string;
+  inferenceType: string;
+}
+
+export interface AiDocumentProcessorProps extends StackProps {
+  readonly labels: Labels;
+  readonly complianceFramework?: string;
+  readonly sageMakerConfig?: SageMakerConfig;
+}
+
+/**
+ * Outputs from the AI Document Processor construct
+ */
+export interface AiDocumentProcessorOutputs {
+  readonly api: RestApi;
+  readonly userPool: IUserPool;
+  readonly vpc: IVpc;
+  readonly inputBucket: IBucket;
+  readonly outputBucket: IBucket;
+  readonly sageMakerAsyncBucket: IBucket;
+  readonly kmsKey: IKey;
+  readonly sageMakerEndpointName: string;
+}
+
+export class AiDocumentProcessor extends Stack {
+  public readonly outputs: AiDocumentProcessorOutputs;
+
+  constructor(scope: Construct, id: string, props: AiDocumentProcessorProps) {
+    super(scope, id, props);
+
+    // Apply compliance framework
+    const complianceFramework = new ComplianceFramework(this, 'Compliance', {
+      framework: (props.complianceFramework || 'hipaa') as ComplianceFrameworkProps['framework'],
+      enableVerboseLogging: true,
+    });
+
+    // Apply compliance checks to the stack
+    Aspects.of(this).add(complianceFramework);
+
+    // Placeholder outputs - replace with actual resources
+    this.outputs = {
+      api: {} as RestApi,
+      userPool: {} as IUserPool,
+      vpc: {} as IVpc,
+      inputBucket: {} as IBucket,
+      outputBucket: {} as IBucket,
+      sageMakerAsyncBucket: {} as IBucket,
+      kmsKey: {} as IKey,
+      sageMakerEndpointName: 'placeholder-endpoint',
+    };
+
+    // Add tags for marketplace identification
+    this.addMarketplaceTags(props.labels);
+  }
+
+  private addMarketplaceTags(labels: Labels): void {
+    const commonTags = {
+      'aws-marketplace:product': 'ai-document-processing-platform',
+      'aws-marketplace:version': '1.0.0',
+      'cost-center': 'marketplace-product',
+      'environment': labels.environment,
+      'auto-scaling': 'enabled',
+      'backup-required': 'true',
+      'monitoring-required': 'true',
+    };
+
+    // Apply tags to the construct
+    Object.entries(commonTags).forEach(([key, value]) => {
+      Tags.of(this).add(key, value);
+    });
+  }
+}
 
 /**
  * Configuration for compliance framework
