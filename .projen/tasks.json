@@ -109,6 +109,9 @@
         },
         {
           "exec": "cp -r src/resources/* lib/resources/ 2>/dev/null || true"
+        },
+        {
+          "exec": "find lib/resources -name \"*.ts\" -delete 2>/dev/null || true"
         }
       ]
     },
@@ -287,6 +290,9 @@
       "steps": [
         {
           "spawn": "docgen"
+        },
+        {
+          "spawn": "copy-assets"
         }
       ]
     },

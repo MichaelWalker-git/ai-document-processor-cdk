@@ -196,18 +196,18 @@ project.addFields({
   ],
 });
 
-project.addTask('copy-assets', {
+// Create the task
+const copyAssetsTask = project.addTask('copy-assets', {
   description: 'Copy lambda and other assets to lib directory',
   steps: [
-    {
-      exec: 'mkdir -p lib/resources',
-    },
-    {
-      exec: 'cp -r src/resources/* lib/resources/ 2>/dev/null || true',
-    },
+    { exec: 'mkdir -p lib/resources' },
+    { exec: 'cp -r src/resources/* lib/resources/ 2>/dev/null || true' },
+    { exec: 'find lib/resources -name "*.ts" -delete 2>/dev/null || true' },
   ],
 });
 
+// Spawn it as part of the build process
+project.postCompileTask.spawn(copyAssetsTask);
 
 // Add custom tasks
 project.addTask('package:all', {
