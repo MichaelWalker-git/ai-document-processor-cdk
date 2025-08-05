@@ -10,6 +10,10 @@
       "type": "build"
     },
     {
+      "name": "@types/fs-extra",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -299,6 +303,10 @@
     {
       "name": "constructs",
       "version": "^10.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "fs-extra",
       "type": "runtime"
     }
   ],

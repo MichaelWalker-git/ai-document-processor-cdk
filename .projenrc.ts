@@ -39,6 +39,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   deps: [
     'aws-cdk-lib@2.208.0',
     'constructs@^10.0.0',
+    'fs-extra',
   ],
 
   // Everything else (non-JSII) gets bundled into your published package:
@@ -86,6 +87,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // devDependencies stay under devDeps:
   devDeps: [
+    '@types/fs-extra',
     'aws-cdk-lib@^2.208.0',
     'constructs@^10.0.0',
     '@types/busboy',
@@ -217,5 +219,7 @@ project.addTask('install:lock', {
   description: 'Install with lockfile',
   exec: 'npm install',
 });
+
+project.addDeps('fs-extra');
 
 project.synth();
