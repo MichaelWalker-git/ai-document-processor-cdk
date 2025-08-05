@@ -208,6 +208,7 @@ const copyAssetsTask = project.addTask('copy-assets', {
 
 // Spawn it as part of the build process
 project.postCompileTask.spawn(copyAssetsTask);
+project.packageTask.prependSpawn(project.compileTask);
 
 // Add custom tasks
 project.addTask('package:all', {

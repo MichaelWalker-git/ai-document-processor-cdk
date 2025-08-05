@@ -239,6 +239,9 @@
       "description": "Creates the distribution package",
       "steps": [
         {
+          "spawn": "compile"
+        },
+        {
           "spawn": "package:js",
           "condition": "node -e \"if (!process.env.CI) process.exit(1)\""
         },
