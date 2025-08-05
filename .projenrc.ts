@@ -39,7 +39,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   deps: [
     'aws-cdk-lib@2.208.0',
     'constructs@^10.0.0',
-    'fs-extra',
   ],
 
   // Everything else (non-JSII) gets bundled into your published package:
