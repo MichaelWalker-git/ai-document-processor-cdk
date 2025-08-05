@@ -83,6 +83,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'aws-sdk',
     'axios',
     'google-auth-library@9.15.1',
+    'fs-extra',
   ],
 
   // devDependencies stay under devDeps:
