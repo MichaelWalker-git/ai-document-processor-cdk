@@ -27,7 +27,7 @@ import { VpcStack } from '../stacks/resources/VpcStack';
 import { SharedResourcesStack } from '../stacks/SharedResourcesStack';
 
 export interface StackProps {
-  labels: Labels;
+  readonly labels: Labels;
 }
 
 export class BackendAppStack extends cdk.Stack {

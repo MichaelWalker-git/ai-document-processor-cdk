@@ -2,8 +2,8 @@ import { Aspects, StackProps, Stage, Tags } from 'aws-cdk-lib';
 import { AwsSolutionsChecks, HIPAASecurityChecks, NIST80053R5Checks, PCIDSS321Checks } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { BackendAppStack } from './backend-app-stack';
-import { Labels } from '../shared/labels';
 // import { FrontendStack } from '../stacks/resources/FrontendStack';
+import { Labels } from '../shared';
 import { S3Stack } from '../stacks/resources/S3Stack';
 
 const REGION = process.env.CDK_DEFAULT_REGION || '';
