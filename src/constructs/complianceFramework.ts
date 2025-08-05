@@ -1,4 +1,4 @@
-import { IAspect, Tags } from 'aws-cdk-lib';
+import { Aspects, IAspect, Tags } from 'aws-cdk-lib';
 import { AwsSolutionsChecks, HIPAASecurityChecks, NIST80053R5Checks, PCIDSS321Checks } from 'cdk-nag';
 import { IConstruct } from 'constructs';
 
@@ -24,31 +24,48 @@ export class ComplianceFramework implements IAspect {
   public visit(node: IConstruct): void {
     const verbose = this.props.enableVerboseLogging ?? false;
 
+    // Get the root of the construct tree to apply aspects
+    const root = node.node.root;
+
     // Always apply AWS Solutions checks
-    node.node.addDependency(new AwsSolutionsChecks({ verbose }));
+    if (!this.hasAspect(root, AwsSolutionsChecks)) {
+      Aspects.of(root).add(new AwsSolutionsChecks({ verbose }));
+    }
 
     // Apply framework-specific checks
     switch (this.props.framework.toLowerCase()) {
       case 'hipaa':
-        node.node.addDependency(new HIPAASecurityChecks({ verbose }));
+        if (!this.hasAspect(root, HIPAASecurityChecks)) {
+          Aspects.of(root).add(new HIPAASecurityChecks({ verbose }));
+        }
         Tags.of(node).add('ComplianceFramework', 'HIPAA');
         break;
 
       case 'nist':
-        node.node.addDependency(new NIST80053R5Checks({ verbose }));
+        if (!this.hasAspect(root, NIST80053R5Checks)) {
+          Aspects.of(root).add(new NIST80053R5Checks({ verbose }));
+        }
         Tags.of(node).add('ComplianceFramework', 'NIST-800-53-R5');
         break;
 
       case 'pci':
-        node.node.addDependency(new PCIDSS321Checks({ verbose }));
+        if (!this.hasAspect(root, PCIDSS321Checks)) {
+          Aspects.of(root).add(new PCIDSS321Checks({ verbose }));
+        }
         Tags.of(node).add('ComplianceFramework', 'PCI-DSS-3.2.1');
         break;
 
       case 'all':
         // Apply all compliance frameworks for maximum security
-        node.node.addDependency(new HIPAASecurityChecks({ verbose }));
-        node.node.addDependency(new NIST80053R5Checks({ verbose }));
-        node.node.addDependency(new PCIDSS321Checks({ verbose }));
+        if (!this.hasAspect(root, HIPAASecurityChecks)) {
+          Aspects.of(root).add(new HIPAASecurityChecks({ verbose }));
+        }
+        if (!this.hasAspect(root, NIST80053R5Checks)) {
+          Aspects.of(root).add(new NIST80053R5Checks({ verbose }));
+        }
+        if (!this.hasAspect(root, PCIDSS321Checks)) {
+          Aspects.of(root).add(new PCIDSS321Checks({ verbose }));
+        }
         Tags.of(node).add('ComplianceFramework', 'Multi-Framework');
         break;
 
@@ -59,7 +76,9 @@ export class ComplianceFramework implements IAspect {
 
       default:
         // Default to HIPAA for healthcare-related AI applications
-        node.node.addDependency(new HIPAASecurityChecks({ verbose }));
+        if (!this.hasAspect(root, HIPAASecurityChecks)) {
+          Aspects.of(root).add(new HIPAASecurityChecks({ verbose }));
+        }
         Tags.of(node).add('ComplianceFramework', 'HIPAA-Default');
         break;
     }
@@ -73,6 +92,16 @@ export class ComplianceFramework implements IAspect {
 
     // Add standard compliance metadata
     this.addComplianceMetadata(node);
+  }
+
+  /**
+   * Check if an aspect of a specific type has already been added
+   */
+  private hasAspect(node: IConstruct, aspectType: any): boolean {
+    const aspects = (node as any)._aspects;
+    if (!aspects) return false;
+
+    return aspects.some((aspect: any) => aspect instanceof aspectType);
   }
 
   private addComplianceMetadata(node: IConstruct): void {

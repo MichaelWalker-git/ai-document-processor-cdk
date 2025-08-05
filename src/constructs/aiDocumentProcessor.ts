@@ -1,4 +1,4 @@
-import { Aspects, Duration, RemovalPolicy } from 'aws-cdk-lib';
+import { Aspects, Duration, RemovalPolicy, Tags } from 'aws-cdk-lib';
 import { RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { IUserPool } from 'aws-cdk-lib/aws-cognito';
 import { IVpc } from 'aws-cdk-lib/aws-ec2';
@@ -126,7 +126,7 @@ export class AiDocumentProcessor extends Construct {
 
     // Apply tags to the construct
     Object.entries(commonTags).forEach(([key, value]) => {
-      this.node.addMetadata(key, value);
+      Tags.of(this).add(key, value);
     });
   }
 }
