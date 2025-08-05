@@ -185,6 +185,8 @@ export class BackendAppStack extends cdk.Stack {
       vpc: vpc,
       kmsKey: kmsKey,
       userPool: userPool,
+      labels: labels,
+      restApiName: restApiName,
     };
 
     // Api Stack

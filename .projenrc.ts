@@ -37,14 +37,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Only JSII-enabled packages here:
   deps: [
-    'aws-cdk-lib@2.173.2',
+    'aws-cdk-lib@2.208.0',
     'constructs@^10.0.0',
   ],
 
   // Everything else (non-JSII) gets bundled into your published package:
   bundledDeps: [
-    '@aws-cdk/integ-tests-alpha@^2.136.1-alpha.0',
-    '@aws-cdk/aws-scheduler-alpha@^2.145.0-alpha.0',
+    '@aws-cdk/integ-tests-alpha@^2.208.0-alpha.0',
+    '@aws-cdk/aws-scheduler-alpha@2.186.0-alpha.0',
+    'cdk-nag@^2.36.50',
     '@aws-sdk/client-bedrock-runtime',
     '@aws-sdk/client-cognito-identity-provider',
     '@aws-sdk/client-dynamodb',
@@ -60,9 +61,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@google-cloud/local-auth',
     '@google-cloud/pubsub',
     '@opensearch-project/opensearch',
+    '@types/aws-lambda',
+    '@aws-sdk/client-sagemaker-runtime',
     'busboy',
     'canvas',
-    'cdk-nag',
     'dotenv',
     'google-auth-library',
     'googleapis',
@@ -84,9 +86,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // devDependencies stay under devDeps:
   devDeps: [
-    'aws-cdk-lib@2.173.2',
-    'constructs@^10.0.5',
-    '@types/aws-lambda',
+    'aws-cdk-lib@^2.208.0',
+    'constructs@^10.0.0',
     '@types/busboy',
     '@types/jsonwebtoken',
     '@types/mime-types',
@@ -97,7 +98,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@typescript-eslint/parser',
     '@types/jest',
     '@types/node',
-    '@aws-sdk/client-sagemaker-runtime',
     '@stylistic/eslint-plugin',
     'esbuild',
     'eslint',
@@ -112,7 +112,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 
   // Peer dependencies (these will be required by consumers)
-  peerDeps: ['aws-cdk-lib@^2.208.0', 'constructs@^10.0.5'],
+  peerDeps: ['aws-cdk-lib@^2.208.0', 'constructs@^10.0.0'],
 
   // Publishing configuration
   releaseToNpm: true,

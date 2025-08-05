@@ -8,8 +8,8 @@ import { S3Stack } from '../stacks/resources/S3Stack';
 const REGION = process.env.CDK_DEFAULT_REGION || '';
 
 export interface StackInputs extends StackProps {
-  labels: Labels;
-  complianceFramework?: string;
+  readonly labels: Labels;
+  readonly complianceFramework?: string;
 }
 
 export class ProdStage extends Stage {

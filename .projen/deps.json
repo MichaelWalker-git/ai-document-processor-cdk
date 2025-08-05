@@ -1,16 +1,8 @@
 {
   "dependencies": [
     {
-      "name": "@aws-sdk/client-sagemaker-runtime",
-      "type": "build"
-    },
-    {
       "name": "@stylistic/eslint-plugin",
       "version": "^2",
-      "type": "build"
-    },
-    {
-      "name": "@types/aws-lambda",
       "type": "build"
     },
     {
@@ -57,7 +49,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.173.2",
+      "version": "^2.208.0",
       "type": "build"
     },
     {
@@ -135,12 +127,12 @@
     },
     {
       "name": "@aws-cdk/aws-scheduler-alpha",
-      "version": "^2.145.0-alpha.0",
+      "version": "2.186.0-alpha.0",
       "type": "bundled"
     },
     {
       "name": "@aws-cdk/integ-tests-alpha",
-      "version": "^2.136.1-alpha.0",
+      "version": "^2.208.0-alpha.0",
       "type": "bundled"
     },
     {
@@ -161,6 +153,10 @@
     },
     {
       "name": "@aws-sdk/client-s3",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-sagemaker-runtime",
       "type": "bundled"
     },
     {
@@ -204,6 +200,10 @@
       "type": "bundled"
     },
     {
+      "name": "@types/aws-lambda",
+      "type": "bundled"
+    },
+    {
       "name": "aws-sdk",
       "type": "bundled"
     },
@@ -221,6 +221,7 @@
     },
     {
       "name": "cdk-nag",
+      "version": "^2.36.50",
       "type": "bundled"
     },
     {
@@ -292,7 +293,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.173.2",
+      "version": "2.208.0",
       "type": "runtime"
     },
     {

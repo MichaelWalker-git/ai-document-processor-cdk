@@ -6,10 +6,14 @@ import { BlockPublicAccess, Bucket, BucketEncryption, CorsRule, HttpMethods } fr
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { KmsStack } from './KmsStack';
-import { StackProps } from '../../lib/backend-app-stack';
+import { Labels } from '../../shared';
 import { createDefaultLambdaRole, getCdkConstructId, getPolicyStatement } from '../../shared/helpers';
 
 const IS_CDK_DEPLOY = process.env.DEPLOYMENT_TYPE === 'CDK';
+
+export interface S3StackProps {
+  readonly labels: Labels;
+}
 
 export class S3Stack extends cdk.Stack {
   public readonly removalPolicy: RemovalPolicy = RemovalPolicy.DESTROY;
@@ -18,7 +22,7 @@ export class S3Stack extends cdk.Stack {
   public readonly outputBucket: Bucket;
   public readonly sageMakerAsyncBucket: Bucket;
 
-  constructor(scope: Construct, id: string, args: StackProps) {
+  constructor(scope: Construct, id: string, args: S3StackProps) {
     super(scope, id);
 
     const labels = args.labels;

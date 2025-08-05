@@ -11,13 +11,13 @@ import { startProcessing } from '../../resources/lambda/s3Triggers/startProcessi
 import { createDefaultLambdaRole, getCdkConstructId, getPolicyStatement } from '../../shared/helpers';
 import { Labels } from '../../shared/labels';
 
-interface IProps {
-  vpc: IVpc;
-  dataTable: Table;
-  kmsKey: Key;
-  securityGroup: SecurityGroup;
-  sageMakerAsyncBucket: Bucket;
-  labels: Labels;
+export interface S3NotificationStackProps {
+  readonly vpc: IVpc;
+  readonly dataTable: Table;
+  readonly kmsKey: Key;
+  readonly securityGroup: SecurityGroup;
+  readonly sageMakerAsyncBucket: Bucket;
+  readonly labels: Labels;
 }
 
 export class S3NotificationStack extends NestedStack {
@@ -27,7 +27,7 @@ export class S3NotificationStack extends NestedStack {
   public readonly securityGroup: SecurityGroup;
   public readonly sageMakerAsyncBucket: Bucket;
 
-  constructor(scope: Construct, id: string, props: IProps) {
+  constructor(scope: Construct, id: string, props: S3NotificationStackProps) {
     super(scope, id);
 
     this.kmsKey = props.kmsKey;

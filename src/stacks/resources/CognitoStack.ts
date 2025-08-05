@@ -19,12 +19,12 @@ import { USER_ROLES } from '../../shared/constants';
 import { createDefaultLambdaRole, getCdkConstructId, getPolicyStatement } from '../../shared/helpers';
 import { Labels } from '../../shared/labels';
 
-interface IProps {
-  vpc: IVpc;
-  inputBucket: IBucket;
-  outputBucket: IBucket;
-  kmsKey: Key;
-  labels: Labels;
+export interface CognitoStackProps {
+  readonly vpc: IVpc;
+  readonly inputBucket: IBucket;
+  readonly outputBucket: IBucket;
+  readonly kmsKey: Key;
+  readonly labels: Labels;
 }
 
 export class CognitoStack extends NestedStack {
@@ -40,7 +40,7 @@ export class CognitoStack extends NestedStack {
   public readonly vpc: IVpc;
   public readonly outputBucket: IBucket;
 
-  constructor(scope: Construct, id: string, props: IProps) {
+  constructor(scope: Construct, id: string, props: CognitoStackProps) {
     super(scope, id);
 
     this.kmsKey = props.kmsKey;

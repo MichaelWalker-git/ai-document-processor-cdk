@@ -17,15 +17,15 @@ import { textExtract } from '../../resources/lambda/stepFunction/02textExtract';
 import { fileProcessing } from '../../resources/lambda/stepFunction/03fileProcessing';
 import { createDefaultLambdaRole, getCdkConstructId, getPolicyStatement } from '../../shared/helpers';
 
-interface IProps {
-  vpc: IVpc;
-  inputBucket: IBucket;
-  outputBucket: IBucket;
-  sageMakerAsyncBucket: IBucket;
-  kmsKey: Key;
-  dataTable: Table;
-  securityGroup: SecurityGroup;
-  sageMakerEndpoint: string;
+export interface StepFunctionsStackProps {
+  readonly vpc: IVpc;
+  readonly inputBucket: IBucket;
+  readonly outputBucket: IBucket;
+  readonly sageMakerAsyncBucket: IBucket;
+  readonly kmsKey: Key;
+  readonly dataTable: Table;
+  readonly securityGroup: SecurityGroup;
+  readonly sageMakerEndpoint: string;
 }
 
 export class StepFunctionsStack extends NestedStack {
@@ -41,7 +41,7 @@ export class StepFunctionsStack extends NestedStack {
   public readonly sageMakerEndpoint: string;
   public readonly sageMakerAsyncBucket: IBucket;
 
-  constructor(scope: Construct, id: string, props: IProps) {
+  constructor(scope: Construct, id: string, props: StepFunctionsStackProps) {
     super(scope, id);
 
     this.kmsKey = props.kmsKey;

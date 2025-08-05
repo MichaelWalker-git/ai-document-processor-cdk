@@ -6,8 +6,8 @@ import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { createVpcCloudwatchLogs, getCdkConstructId } from '../../shared/helpers';
 
-interface IProps {
-  kmsKey: Key;
+export interface VpcStackProps {
+  readonly kmsKey: Key;
 }
 
 export class VpcStack extends NestedStack {
@@ -19,7 +19,7 @@ export class VpcStack extends NestedStack {
   public readonly securityGroupS3: SecurityGroup;
   public readonly securityGroupOpenSearch: SecurityGroup;
 
-  constructor(scope: Construct, id: string, props: IProps) {
+  constructor(scope: Construct, id: string, props: VpcStackProps) {
     super(scope, id);
     this.kmsKey = props.kmsKey;
 

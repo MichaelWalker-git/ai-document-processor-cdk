@@ -8,237 +8,81 @@ import { Construct } from 'constructs';
 import { ComplianceFramework, ComplianceFrameworkProps } from './complianceFramework';
 import { Labels } from '../shared/labels';
 
-/**
- * Configuration options for the AI Document Processor
- */
+
+export interface SageMakerConfig {
+  readonly modelName?: string;
+  readonly instanceType?: string;
+  readonly inferenceType?: 'SYNC' | 'ASYNC';
+}
+
+export interface VpcConfig {
+  readonly vpc?: IVpc;
+  readonly cidr?: string;
+}
+
+export interface BucketConfig {
+  readonly inputBucket?: IBucket;
+  readonly outputBucket?: IBucket;
+  readonly sageMakerAsyncBucket?: IBucket;
+  readonly removalPolicy?: RemovalPolicy;
+}
+
+export interface EncryptionConfig {
+  readonly kmsKey?: IKey;
+  readonly keyRotationPeriod?: Duration;
+}
+
+export interface Throttling {
+  readonly rateLimit?: number;
+  readonly burstLimit?: number;
+};
+
+export interface ApiConfig {
+  readonly corsAllowedOrigins?: string[];
+  readonly throttling?: Throttling;
+}
+
+export interface PasswordPolicy {
+  readonly minLength?: number;
+  readonly requireLowercase?: boolean;
+  readonly requireUppercase?: boolean;
+  readonly requireDigits?: boolean;
+  readonly requireSymbols?: boolean;
+}
+
+export interface AuthConfig {
+  readonly userPool?: IUserPool;
+  readonly passwordPolicy?: PasswordPolicy;
+}
+
 export interface AiDocumentProcessorProps {
-  /**
-   * Labels for resource naming and tagging
-   */
   readonly labels: Labels;
-
-  /**
-   * Compliance framework to apply (hipaa, nist, pci, all)
-   * @default 'hipaa'
-   */
   readonly complianceFramework?: string;
-
-  /**
-   * Whether to enable detailed monitoring
-   * @default true
-   */
   readonly enableDetailedMonitoring?: boolean;
-
-  /**
-   * Whether to enable X-Ray tracing
-   * @default true
-   */
   readonly enableXRayTracing?: boolean;
-
-  /**
-   * SageMaker model configuration
-   */
-  readonly sageMakerConfig?: {
-    /**
-     * Model ID for the SageMaker endpoint
-     * @default 'Qwen/Qwen2.5-VL-7B-Instruct'
-     */
-    readonly modelId?: string;
-
-    /**
-     * Instance type for the SageMaker endpoint
-     * @default 'ml.g5.xlarge'
-     */
-    readonly instanceType?: string;
-
-    /**
-     * Inference type (SYNC or ASYNC)
-     * @default 'ASYNC'
-     */
-    readonly inferenceType?: 'SYNC' | 'ASYNC';
-  };
-
-  /**
-   * VPC configuration
-   */
-  readonly vpcConfig?: {
-    /**
-     * Existing VPC to use. If not provided, a new VPC will be created
-     */
-    readonly vpc?: IVpc;
-
-    /**
-     * VPC CIDR block if creating a new VPC
-     * @default '10.0.0.0/16'
-     */
-    readonly cidr?: string;
-  };
-
-  /**
-   * S3 bucket configuration
-   */
-  readonly bucketConfig?: {
-    /**
-     * Existing input bucket. If not provided, a new bucket will be created
-     */
-    readonly inputBucket?: IBucket;
-
-    /**
-     * Existing output bucket. If not provided, a new bucket will be created
-     */
-    readonly outputBucket?: IBucket;
-
-    /**
-     * Existing SageMaker async bucket. If not provided, a new bucket will be created
-     */
-    readonly sageMakerAsyncBucket?: IBucket;
-
-    /**
-     * Bucket removal policy
-     * @default RemovalPolicy.RETAIN
-     */
-    readonly removalPolicy?: RemovalPolicy;
-  };
-
-  /**
-   * KMS encryption configuration
-   */
-  readonly encryptionConfig?: {
-    /**
-     * Existing KMS key. If not provided, a new key will be created
-     */
-    readonly kmsKey?: IKey;
-
-    /**
-     * Key rotation period
-     * @default Duration.days(365)
-     */
-    readonly keyRotationPeriod?: Duration;
-  };
-
-  /**
-   * API Gateway configuration
-   */
-  readonly apiConfig?: {
-    /**
-     * CORS allowed origins
-     * @default ['*']
-     */
-    readonly corsAllowedOrigins?: string[];
-
-    /**
-     * API throttling configuration
-     */
-    readonly throttling?: {
-      readonly rateLimit?: number;
-      readonly burstLimit?: number;
-    };
-  };
-
-  /**
-   * Cognito User Pool configuration
-   */
-  readonly authConfig?: {
-    /**
-     * Existing User Pool. If not provided, a new pool will be created
-     */
-    readonly userPool?: IUserPool;
-
-    /**
-     * User pool password policy
-     */
-    readonly passwordPolicy?: {
-      readonly minLength?: number;
-      readonly requireLowercase?: boolean;
-      readonly requireUppercase?: boolean;
-      readonly requireDigits?: boolean;
-      readonly requireSymbols?: boolean;
-    };
-  };
+  readonly sageMakerConfig?: SageMakerConfig;
+  readonly vpcConfig?: VpcConfig;
+  readonly bucketConfig?: BucketConfig;
+  readonly encryptionConfig?: EncryptionConfig;
+  readonly apiConfig?: ApiConfig;
+  readonly authConfig?: AuthConfig;
 }
 
 /**
  * Outputs from the AI Document Processor construct
  */
 export interface AiDocumentProcessorOutputs {
-  /**
-   * The REST API endpoint
-   */
   readonly api: RestApi;
-
-  /**
-   * The Cognito User Pool
-   */
   readonly userPool: IUserPool;
-
-  /**
-   * The VPC used by the application
-   */
   readonly vpc: IVpc;
-
-  /**
-   * The input S3 bucket
-   */
   readonly inputBucket: IBucket;
-
-  /**
-   * The output S3 bucket
-   */
   readonly outputBucket: IBucket;
-
-  /**
-   * The SageMaker async S3 bucket
-   */
   readonly sageMakerAsyncBucket: IBucket;
-
-  /**
-   * The KMS key used for encryption
-   */
   readonly kmsKey: IKey;
-
-  /**
-   * SageMaker endpoint name
-   */
   readonly sageMakerEndpointName: string;
 }
 
-/**
- * High-level construct for the AI Document Processor platform
- *
- * This construct creates a complete AI-powered document processing platform
- * with SageMaker integration, including:
- *
- * - VPC with public and private subnets
- * - S3 buckets for input, output, and SageMaker async processing
- * - SageMaker endpoint for AI inference
- * - API Gateway with Cognito authentication
- * - Step Functions for workflow orchestration
- * - DynamoDB for metadata storage
- * - CloudWatch monitoring and X-Ray tracing
- * - KMS encryption for data at rest
- * - Compliance framework integration
- *
- * @example
- * ```typescript
- * import { AiDocumentProcessor } from '@horustech/ai-document-processor-cdk';
- *
- * const processor = new AiDocumentProcessor(this, 'MyDocProcessor', {
- *   labels: new Labels('MyApp', 'prod', 'us-east-1', 'my-app'),
- *   complianceFramework: 'hipaa',
- *   sageMakerConfig: {
- *     modelId: 'Qwen/Qwen2.5-VL-7B-Instruct',
- *     instanceType: 'ml.g5.xlarge',
- *   },
- * });
- *
- * // Access outputs
- * const apiUrl = processor.outputs.api.url;
- * ```
- */
 export class AiDocumentProcessor extends Construct {
-  /**
-   * The outputs from this construct
-   */
   public readonly outputs: AiDocumentProcessorOutputs;
 
   constructor(scope: Construct, id: string, props: AiDocumentProcessorProps) {
@@ -252,22 +96,6 @@ export class AiDocumentProcessor extends Construct {
 
     // Apply compliance checks to the stack
     Aspects.of(this).add(complianceFramework);
-
-    // TODO: Implement the actual stack creation logic here
-    // This would include creating all the necessary resources:
-    // - VPC (if not provided)
-    // - S3 buckets (if not provided)
-    // - KMS key (if not provided)
-    // - SageMaker stack
-    // - API Gateway stack
-    // - Cognito stack
-    // - Step Functions stack
-    // - DynamoDB stack
-    // - Lambda functions
-    // - IAM roles and policies
-
-    // For now, we'll create a placeholder implementation
-    // In a real implementation, you would instantiate your existing stacks here
 
     // Placeholder outputs - replace with actual resources
     this.outputs = {

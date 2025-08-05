@@ -5,8 +5,8 @@ import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 
 export interface SecretProps {
-  name: string;
-  environment: string;
+  readonly name: string;
+  readonly environment: string;
 }
 
 export class Secret extends Construct {

@@ -42,28 +42,6 @@ export interface LambdaInvokeResponse<T = any> {
   rawPayload?: string;
 }
 
-/**
- * Invokes an AWS Lambda function and returns the result
- *
- * @param params Parameters for the Lambda invocation
- * @returns The response from the Lambda function
- *
- * @example
- * // Synchronous invocation
- * const result = await invokeLambda({
- *   functionName: 'my-function',
- *   payload: { id: '123' },
- *   invocationType: InvocationType.RequestResponse
- * });
- *
- * @example
- * // Asynchronous invocation
- * await invokeLambda({
- *   functionName: 'notification-function',
- *   payload: { userId: 'user123', message: 'Hello' },
- *   invocationType: InvocationType.Event
- * });
- */
 export async function invokeLambda<TPayload = any, TResponse = any>(
   params: InvokeLambdaParams<TPayload>,
 ): Promise<LambdaInvokeResponse<TResponse>> {

@@ -6,41 +6,13 @@ import { IConstruct } from 'constructs';
  * Configuration for compliance framework
  */
 export interface ComplianceFrameworkProps {
-  /**
-   * The compliance framework to apply
-   */
   readonly framework: 'hipaa' | 'nist' | 'pci' | 'all' | 'aws-solutions-only';
-
-  /**
-   * Whether to enable verbose logging for compliance checks
-   * @default false
-   */
   readonly enableVerboseLogging?: boolean;
-
-  /**
-   * Custom tags to apply for compliance
-   */
   readonly complianceTags?: Record<string, string>;
 }
 
-/**
- * An aspect that applies compliance frameworks to CDK constructs
- *
- * This aspect automatically applies the appropriate compliance checks
- * and tags based on the selected framework.
- *
- * @example
- * ```typescript
- * const compliance = new ComplianceFramework(this, 'Compliance', {
- *   framework: 'hipaa',
- *   enableVerboseLogging: true,
- * });
- *
- * Aspects.of(stack).add(compliance);
- * ```
- */
 export class ComplianceFramework implements IAspect {
-  private readonly props: ComplianceFrameworkProps;
+  public readonly props: ComplianceFrameworkProps;
 
   constructor(_scope: IConstruct, _id: string, props: ComplianceFrameworkProps) {
     this.props = props;

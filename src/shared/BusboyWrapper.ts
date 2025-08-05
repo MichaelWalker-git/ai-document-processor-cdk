@@ -1,6 +1,12 @@
 import { Readable } from 'stream';
 import * as Busboy from 'busboy';
-import { LambdaHandlerEvent } from './types';
+
+export interface LambdaHandlerEvent {
+  readonly headers: Record<string, string>;
+  readonly pathParameters?: Record<string, string>;
+  readonly body?: string;
+  readonly isBase64Encoded?: boolean;
+}
 
 type File = {
   file: Buffer;

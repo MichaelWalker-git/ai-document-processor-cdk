@@ -13,16 +13,16 @@ import { createDefaultLambdaRole, getCdkConstructId, getPolicyStatement } from '
 import { Labels } from '../../shared/labels';
 
 export interface LlamaNemotronStackProps extends cdk.StackProps {
-  modelName: string;
-  endpointName: string;
-  modelId: string;
-  instanceType?: string;
-  inferenceType?: string;
-  initialInstanceCount?: number;
-  kmsKey: Key;
-  vpc: IVpc;
-  sageMakerAsyncBucket: IBucket;
-  labels: Labels;
+  readonly modelName: string;
+  readonly endpointName: string;
+  readonly modelId: string;
+  readonly instanceType?: string;
+  readonly inferenceType?: string;
+  readonly initialInstanceCount?: number;
+  readonly kmsKey: Key;
+  readonly vpc: IVpc;
+  readonly sageMakerAsyncBucket: IBucket;
+  readonly labels: Labels;
 }
 
 export class SageMakerStack extends NestedStack {

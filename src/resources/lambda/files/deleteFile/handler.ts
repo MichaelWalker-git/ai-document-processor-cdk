@@ -7,7 +7,7 @@ export const handler = async (event: LambdaHandlerEvent) => {
   try {
     console.log('Event:', event);
 
-    const { fileId } = event.pathParameters;
+    const fileId = event.pathParameters?.fileId;
 
     if (!fileId) {
       throw new ClientError('Required fileId is missing', 400);

@@ -12,17 +12,17 @@ import { startProcessing } from '../../resources/lambda/s3Triggers/startProcessi
 import { getCdkConstructId, createDefaultLambdaRole, getPolicyStatement } from '../../shared/helpers';
 import { Labels } from '../../shared/labels';
 
-interface IProps {
-  vpc: IVpc;
-  dataTable: Table;
-  securityGroup: SecurityGroup;
-  inputBucket: IBucket;
-  outputBucket: IBucket;
-  sageMakerAsyncBucket: IBucket;
-  labels: Labels;
-  stateMachineArn: String;
-  kmsKey: Key;
-  processingQueue: Queue;
+export interface ThrottledS3NotificationStackProps {
+  readonly vpc: IVpc;
+  readonly dataTable: Table;
+  readonly securityGroup: SecurityGroup;
+  readonly inputBucket: IBucket;
+  readonly outputBucket: IBucket;
+  readonly sageMakerAsyncBucket: IBucket;
+  readonly labels: Labels;
+  readonly stateMachineArn: String;
+  readonly kmsKey: Key;
+  readonly processingQueue: Queue;
 }
 
 export class ThrottledS3NotificationStack extends NestedStack {
@@ -37,7 +37,7 @@ export class ThrottledS3NotificationStack extends NestedStack {
   public readonly securityGroup: SecurityGroup;
   public readonly kmsKey: Key;
 
-  constructor(scope: Construct, id: string, props: IProps) {
+  constructor(scope: Construct, id: string, props: ThrottledS3NotificationStackProps) {
     super(scope, id);
 
     this.stateMachineArn = props.stateMachineArn;

@@ -7,11 +7,25 @@ import { IVpc, SecurityGroup } from 'aws-cdk-lib/aws-ec2';
 import { Key } from 'aws-cdk-lib/aws-kms';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
-import {
-  getCdkConstructId,
-} from '../shared/helpers';
-import { ApiStackProps } from '../shared/types';
+import { Labels } from '../shared';
+import { getCdkConstructId } from '../shared/helpers';
 import { FileApiStack } from './api/File';
+
+export interface ApiStackProps {
+  readonly labels: Labels;
+  readonly restApiName: string;
+  readonly description?: string;
+  readonly securityGroup: SecurityGroup;
+  readonly restApi: RestApi;
+  readonly dataTableName: string;
+  readonly inputBucketName: string;
+  readonly outputBucketName: string;
+  readonly tableName: string;
+  readonly tableArn: string;
+  readonly vpc: IVpc;
+  readonly kmsKey: Key;
+  readonly userPool: UserPool;
+};
 
 export class ApiStack extends NestedStack {
   public readonly removalPolicy: RemovalPolicy = RemovalPolicy.DESTROY;

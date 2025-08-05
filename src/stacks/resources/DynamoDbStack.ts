@@ -7,10 +7,9 @@ import { PARTITION_KEY_NAME, SORT_KEY_NAME } from '../../shared/constants';
 import { getCdkConstructId } from '../../shared/helpers';
 import { Labels } from '../../shared/labels';
 
-
-interface IProps {
-  kmsKey: Key;
-  labels: Labels;
+export interface DynamoDbStackProps {
+  readonly kmsKey: Key;
+  readonly labels: Labels;
 }
 
 export class DynamoDbStack extends NestedStack {
@@ -18,7 +17,7 @@ export class DynamoDbStack extends NestedStack {
   public readonly kmsKey: Key;
   public readonly dataTable: Table;
 
-  constructor(scope: Construct, id: string, props: IProps) {
+  constructor(scope: Construct, id: string, props: DynamoDbStackProps) {
     super(scope, id);
     this.kmsKey = props.kmsKey;
 

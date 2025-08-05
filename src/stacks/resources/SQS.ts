@@ -6,16 +6,16 @@ import { Construct } from 'constructs';
 import { getCdkConstructId } from '../../shared/helpers';
 import { Labels } from '../../shared/labels';
 
-interface IProps {
-  labels: Labels;
-  kmsKey: Key;
+export interface SqsStackProps {
+  readonly labels: Labels;
+  readonly kmsKey: Key;
 }
 
 export class SqsStack extends NestedStack {
   public readonly processingQueue: Queue;
   public readonly kmsKey: Key;
 
-  constructor(scope: Construct, id: string, props: IProps) {
+  constructor(scope: Construct, id: string, props: SqsStackProps) {
     super(scope, id);
 
     this.kmsKey = props.kmsKey;

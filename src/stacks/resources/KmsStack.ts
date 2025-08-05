@@ -5,11 +5,15 @@ import { Construct } from 'constructs';
 import { getCdkConstructId, getPolicyStatement } from '../../shared/helpers';
 import { Labels } from '../../shared/labels';
 
+export interface KmsStackProps {
+  readonly labels: Labels;
+}
+
 export class KmsStack extends NestedStack {
   public readonly removalPolicy: RemovalPolicy = RemovalPolicy.DESTROY;
   public readonly kmsKey: Key;
 
-  constructor(scope: Construct, id: string, args: {labels: Labels}) {
+  constructor(scope: Construct, id: string, args: KmsStackProps) {
     super(scope, id);
 
     const aliasName = getCdkConstructId({ context: 'kms', resourceName: 'alias', addId: true }, this);
