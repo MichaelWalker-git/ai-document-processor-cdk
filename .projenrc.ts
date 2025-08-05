@@ -38,7 +38,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // Only JSII-enabled packages here:
   deps: [
     'aws-cdk-lib@2.208.0',
-    'constructs@^10.0.0',
+    'constructs@^10.0.5',
   ],
 
   // Everything else (non-JSII) gets bundled into your published package:
@@ -89,7 +89,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   devDeps: [
     '@types/fs-extra',
     'aws-cdk-lib@^2.208.0',
-    'constructs@^10.0.0',
+    'constructs@^10.0.5',
     '@types/busboy',
     '@types/jsonwebtoken',
     '@types/mime-types',
@@ -114,7 +114,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 
   // Peer dependencies (these will be required by consumers)
-  peerDeps: ['aws-cdk-lib@^2.208.0', 'constructs@^10.0.0'],
+  peerDeps: ['aws-cdk-lib@^2.208.0', 'constructs@^10.0.5'],
 
   // Publishing configuration
   releaseToNpm: true,
