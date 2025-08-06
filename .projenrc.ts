@@ -185,16 +185,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   stability: 'stable',
 });
 
-// CRITICAL: Include lambda assets in the published package
-project.addFields({
-  files: [
-    'lib/**/*',
-    'src/**/*',
-    '!src/**/*.ts', // Exclude source TS files since we include compiled JS
-    '*.md',
-    'LICENSE',
-  ],
-});
 
 // Add custom tasks
 project.addTask('package:all', {
@@ -208,6 +198,9 @@ project.addTask('package:all', {
 });
 
 project.testTask.reset('echo "⚠️  tests skipped"');
+
+project.compileTask.exec('cp -R src/assets lib/assets');
+project.compileTask.exec('cp -R src/resources/lambda/sageMaker lib/resources/lambda/sageMaker');
 
 project.addTask('docs:generate', {
   description: 'Generate API documentation',
