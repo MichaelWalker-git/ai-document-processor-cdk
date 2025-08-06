@@ -185,16 +185,16 @@ const project = new awscdk.AwsCdkConstructLibrary({
   stability: 'stable',
 });
 
-// // CRITICAL: Include lambda assets in the published package
-// project.addFields({
-//   files: [
-//     'lib/**/*',
-//     'src/**/*',
-//     '!src/**/*.ts', // Exclude source TS files since we include compiled JS
-//     '*.md',
-//     'LICENSE',
-//   ],
-// });
+// CRITICAL: Include lambda assets in the published package
+project.addFields({
+  files: [
+    'lib/**/*',
+    'src/**/*',
+    '!src/**/*.ts', // Exclude source TS files since we include compiled JS
+    '*.md',
+    'LICENSE',
+  ],
+});
 
 // Add custom tasks
 project.addTask('package:all', {
