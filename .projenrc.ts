@@ -185,30 +185,16 @@ const project = new awscdk.AwsCdkConstructLibrary({
   stability: 'stable',
 });
 
-// CRITICAL: Include lambda assets in the published package
-project.addFields({
-  files: [
-    'lib/**/*',
-    'src/**/*',
-    '!src/**/*.ts', // Exclude source TS files since we include compiled JS
-    '*.md',
-    'LICENSE',
-  ],
-});
-
-// Create the task
-const copyAssetsTask = project.addTask('copy-assets', {
-  description: 'Copy lambda and other assets to lib directory',
-  steps: [
-    { exec: 'mkdir -p lib/resources' },
-    { exec: 'cp -r src/resources/* lib/resources/ 2>/dev/null || true' },
-    { exec: 'find lib/resources -name "*.ts" -delete 2>/dev/null || true' },
-  ],
-});
-
-// Spawn it as part of the build process
-project.postCompileTask.spawn(copyAssetsTask);
-project.packageTask.prependSpawn(project.compileTask);
+// // CRITICAL: Include lambda assets in the published package
+// project.addFields({
+//   files: [
+//     'lib/**/*',
+//     'src/**/*',
+//     '!src/**/*.ts', // Exclude source TS files since we include compiled JS
+//     '*.md',
+//     'LICENSE',
+//   ],
+// });
 
 // Add custom tasks
 project.addTask('package:all', {

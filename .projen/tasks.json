@@ -100,21 +100,6 @@
         }
       ]
     },
-    "copy-assets": {
-      "name": "copy-assets",
-      "description": "Copy lambda and other assets to lib directory",
-      "steps": [
-        {
-          "exec": "mkdir -p lib/resources"
-        },
-        {
-          "exec": "cp -r src/resources/* lib/resources/ 2>/dev/null || true"
-        },
-        {
-          "exec": "find lib/resources -name \"*.ts\" -delete 2>/dev/null || true"
-        }
-      ]
-    },
     "default": {
       "name": "default",
       "description": "Synthesize project files",
@@ -239,9 +224,6 @@
       "description": "Creates the distribution package",
       "steps": [
         {
-          "spawn": "compile"
-        },
-        {
           "spawn": "package:js",
           "condition": "node -e \"if (!process.env.CI) process.exit(1)\""
         },
@@ -293,9 +275,6 @@
       "steps": [
         {
           "spawn": "docgen"
-        },
-        {
-          "spawn": "copy-assets"
         }
       ]
     },
