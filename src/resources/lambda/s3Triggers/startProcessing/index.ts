@@ -16,7 +16,7 @@ export const startProcessing: LambdaHandler = (scope, env, role, vpc, securityGr
     runtime: Runtime.NODEJS_22_X,
     reservedConcurrentExecutions: 2,
     timeout: Duration.minutes(5),
-    entry: join(__dirname, '/handler.ts'),
+    entry: join(__dirname, '/handler.js'),
     environment: env,
     bundling: {
       nodeModules: ['aws-sdk'],

@@ -19,7 +19,7 @@ export const getFile: LambdaHandler = (scope, env, role, vpc, securityGroup) => 
     runtime: Runtime.NODEJS_22_X,
     reservedConcurrentExecutions: 5,
     timeout: Duration.minutes(5),
-    entry: join(__dirname, '/handler.ts'),
+    entry: join(__dirname, '/handler.js'),
     environment: env,
   });
 };

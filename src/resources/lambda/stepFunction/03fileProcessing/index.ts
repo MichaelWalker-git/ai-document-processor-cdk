@@ -17,7 +17,7 @@ export const fileProcessing: LambdaHandler = (scope, env, role, vpc, securityGro
     runtime: Runtime.NODEJS_22_X,
     reservedConcurrentExecutions: 40,
     timeout: Duration.minutes(5),
-    entry: join(__dirname, '/handler.ts'),
+    entry: join(__dirname, '/handler.js'),
     environment: env,
     bundling: {
       nodeModules: ['aws-sdk', 'smartystreets-javascript-sdk'],

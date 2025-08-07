@@ -17,7 +17,7 @@ export const textExtract: LambdaHandler = (scope, env, role, vpc, securityGroup)
     runtime: Runtime.NODEJS_22_X,
     reservedConcurrentExecutions: 40,
     timeout: Duration.minutes(10),
-    entry: join(__dirname, '/handler.ts'),
+    entry: join(__dirname, '/handler.js'),
     environment: env,
     bundling: {
       nodeModules: ['aws-sdk'],
