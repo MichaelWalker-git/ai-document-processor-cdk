@@ -51,7 +51,7 @@ export class FrontendStack extends cdk.Stack {
     });
     const execOptions: ExecSyncOptions = { stdio: 'inherit' };
 
-    const bundle = Source.asset('../../client-app', {
+    const bundle = Source.asset('../client-app', {
       bundling: {
         command: [
           'sh',
@@ -63,11 +63,11 @@ export class FrontendStack extends cdk.Stack {
           /* istanbul ignore next */
           tryBundle(outputDir: string) {
             execSync(
-              'cd ../../client-app && npm install --legacy-peer-deps && npm run build',
+              'cd ../client-app && npm install --legacy-peer-deps && npm run build',
               execOptions,
             );
 
-            fsExtra.copySync('../../client-app/dist', outputDir, {
+            fsExtra.copySync('../client-app/dist', outputDir, {
               ...execOptions,
               // @ts-ignore
               recursive: true,
