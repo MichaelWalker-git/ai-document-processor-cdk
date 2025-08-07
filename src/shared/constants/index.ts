@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { Duration } from 'aws-cdk-lib';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunctionProps } from 'aws-cdk-lib/aws-lambda-nodejs';
@@ -18,12 +17,12 @@ export const CORS = {
   ORIGIN: '*',
 } as const;
 
+
 // Lambda
 export const DEFAULT_PROPS: NodejsFunctionProps = {
-  runtime: Runtime.NODEJS_18_X,
+  runtime: Runtime.NODEJS_22_X,
   memorySize: 512,
-  timeout: Duration.seconds(30),
-  depsLockFilePath: path.join(__dirname, '../../../', 'package-lock.json'),
+  timeout: Duration.minutes(5),
   handler: 'handler',
   bundling: {
     externalModules: ['aws-sdk'],
