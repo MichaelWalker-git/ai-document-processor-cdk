@@ -102,9 +102,6 @@
           "exec": "cp -R src/assets lib/assets"
         },
         {
-          "exec": "cp -R src/package-lock.json lib/package-lock.json"
-        },
-        {
           "exec": "cp -R src/resources/lambda/sageMaker lib/resources/lambda/sageMaker"
         },
         {
