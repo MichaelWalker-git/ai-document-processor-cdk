@@ -61,4 +61,5 @@ tsconfig.json
 !/API.md
 client-app/node_modules/
 client-app/dist/
+!client-app/tsconfig.json
 !/.projenrc.ts

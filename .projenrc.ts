@@ -222,9 +222,16 @@ project.eslint?.addRules({
   ],
 });
 
-
-project.npmignore?.addPatterns('client-app/', '!client-app/build/**'); // Optional: keep build output
-project.gitignore?.addPatterns('client-app/node_modules/', 'client-app/dist/');
+project.npmignore?.addPatterns(
+  'client-app/',
+  '!client-app/build/**',
+  '!client-app/tsconfig.json',
+);
+project.gitignore?.addPatterns(
+  'client-app/node_modules/',
+  'client-app/dist/',
+  '!client-app/tsconfig.json',
+);
 
 const task = project.addTask('build:client-app', {
   description: 'Build React app',

@@ -21,6 +21,7 @@ tsconfig.tsbuildinfo
 !.jsii
 client-app/
 !client-app/build/**
+!client-app/tsconfig.json
 /.gitattributes
 /.projenrc.ts
 /projenrc
