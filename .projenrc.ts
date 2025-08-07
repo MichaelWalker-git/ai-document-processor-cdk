@@ -235,7 +235,7 @@ project.gitignore?.addPatterns(
 
 const task = project.addTask('build:client-app', {
   description: 'Build React app',
-  exec: 'cd client-app && npm install --legacy-peer-deps && npm run build',
+  exec: 'cd client-app && yarn install --frozen-lockfile && npm run build',
 });
 
 project.compileTask.prependSpawn(task);

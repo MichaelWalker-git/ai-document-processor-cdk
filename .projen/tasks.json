@@ -29,7 +29,7 @@
       "description": "Build React app",
       "steps": [
         {
-          "exec": "cd client-app && npm install --legacy-peer-deps && npm run build"
+          "exec": "cd client-app && yarn install --frozen-lockfile && npm run build"
         }
       ]
     },
