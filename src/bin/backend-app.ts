@@ -42,19 +42,6 @@ const prodProps = {
   },
 };
 
-// Add marketplace-specific metadata
-app.node.setContext('@aws-cdk/core:enableStackVersionCreation', true);
-app.node.setContext('@aws-cdk/core:enableDependencyDetection', true);
-app.node.setContext('@aws-cdk/aws-lambda:recognizeVersionProps', true);
-app.node.setContext('@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021', true);
-app.node.setContext('@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId', true);
-
-// Add marketplace product information as context
-app.node.setContext('marketplace:version', MARKETPLACE_VERSION);
-app.node.setContext('marketplace:vendor', VENDOR_NAME);
-app.node.setContext('marketplace:supportEmail', process.env.SUPPORT_EMAIL || 'support@your-company.com');
-app.node.setContext('marketplace:documentationUrl', process.env.DOCS_URL || 'https://docs.your-company.com');
-
 // Deploy the marketplace stage
 new ProdStage(
   app,

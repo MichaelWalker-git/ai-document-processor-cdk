@@ -201,6 +201,7 @@ project.testTask.reset('echo "⚠️  tests skipped"');
 
 project.compileTask.exec('cp -R src/assets lib/assets');
 project.compileTask.exec('cp -R src/resources/lambda/sageMaker lib/resources/lambda/sageMaker');
+project.compileTask.exec('cp -R src/resources/lambda/stepFunction/01pdfToImages lib/resources/lambda/stepFunction/01pdfToImages');
 
 project.addTask('docs:generate', {
   description: 'Generate API documentation',
