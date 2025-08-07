@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { Fn } from 'aws-cdk-lib';
+import { CfnOutput, Fn } from 'aws-cdk-lib';
 import {
   AccessLogFormat,
   Cors,
@@ -13,21 +13,29 @@ import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { getCdkConstructId } from '../shared/helpers';
 import { Labels } from '../shared/labels';
-import { ApiStack } from '../stacks/ApiStack';
+import { ApiStack } from '../stacks/api/ApiStack';
 import { CognitoStack } from '../stacks/resources/CognitoStack';
 import { DynamoDbStack } from '../stacks/resources/DynamoDbStack';
 import { IamStack } from '../stacks/resources/IamStack';
 import { KmsStack } from '../stacks/resources/KmsStack';
 import { SageMakerStack } from '../stacks/resources/SageMakerStack';
 import { Secret } from '../stacks/resources/SecretStack';
+import { SharedResourcesStack } from '../stacks/resources/SharedResourcesStack';
 import { SqsStack } from '../stacks/resources/SQS';
 import { StepFunctionsStack } from '../stacks/resources/StepFunctionsStack';
 import { ThrottledS3NotificationStack } from '../stacks/resources/ThrottledS3NotificationStack';
 import { VpcStack } from '../stacks/resources/VpcStack';
-import { SharedResourcesStack } from '../stacks/SharedResourcesStack';
 
 export interface StackProps {
   readonly labels: Labels;
+  readonly clientUrl: string;
+  readonly adminEmail: string;
+  readonly adminFamilyName: string;
+  readonly adminGivenName: string;
+  readonly vendorName: string;
+  readonly smartyAuthId: string;
+  readonly smartyAuthToken: string;
+  readonly huggingfaceHubToken: string;
 }
 
 export class BackendAppStack extends cdk.Stack {
@@ -35,10 +43,17 @@ export class BackendAppStack extends cdk.Stack {
     super(scope, id, props);
 
     const labels = args.labels;
+    const clientUrl = args.clientUrl;
+    const adminEmail = args.adminEmail;
+    const adminFamilyName = args.adminFamilyName;
+    const adminGivenName = args.adminGivenName;
+    const smartyAuthId = args.smartyAuthId;
+    const smartyAuthToken = args.smartyAuthToken;
+    const huggingfaceHubToken = args.huggingfaceHubToken;
 
-    const importInputBucketName = 'ExportInputBucketName';
-    const importOutputBucketName = 'ExportOutputBucketName';
-    const importSageMakerAsyncBucketName = 'ExportSageMakerAsyncBucketName';
+    const importInputBucketName = `${labels.name()}-input-bucket-name`;
+    const importOutputBucketName = `${labels.name()}-output-bucket-name`;
+    const importSageMakerAsyncBucketName = `${labels.name()}-sagemaker-async-bucket-name`;
 
     const inputBucketName = Fn.importValue(importInputBucketName);
     const outputBucketName = Fn.importValue(importOutputBucketName);
@@ -98,6 +113,7 @@ export class BackendAppStack extends cdk.Stack {
       sageMakerAsyncBucket,
       inferenceType: 'ASYNC',
       labels: labels,
+      huggingfaceHubToken,
     });
 
     // StepFunctions Stack
@@ -110,6 +126,8 @@ export class BackendAppStack extends cdk.Stack {
       dataTable,
       securityGroup: securityGroupStepFunctions,
       sageMakerEndpoint: endpointName,
+      smartyAuthId,
+      smartyAuthToken,
     });
     const { stateMachine } = stepFunctionsStack;
 
@@ -141,8 +159,12 @@ export class BackendAppStack extends cdk.Stack {
       outputBucket,
       kmsKey,
       labels: labels,
+      clientUrl,
+      adminEmail,
+      adminFamilyName,
+      adminGivenName,
     });
-    const { userPool } = cognitoStack;
+    const { userPool, cognitoClient, userPoolDomain, identityPool } = cognitoStack;
 
     // API Stack with enhanced security
     const restApiName = getCdkConstructId({ context: 'processing', resourceName: 'rest-api' }, this);
@@ -191,6 +213,37 @@ export class BackendAppStack extends cdk.Stack {
 
     // Api Stack
     new ApiStack(this, 'Api-Stack', stackProps);
+
+
+    new CfnOutput(this, 'CognitoUserPoolId', {
+      value: userPool.userPoolId,
+      exportName: `${labels.name()}-user-pool-id`,
+    });
+
+    new CfnOutput(this, 'RestApiUrl', {
+      value: restApi.url,
+      description: 'REST API Gateway URL for the application',
+      exportName: `${labels.name()}-rest-api-uri`,
+    });
+
+    new CfnOutput(this, 'UserPoolClientId', {
+      value: cognitoClient.userPoolClientId,
+      description: 'Cognito User Pool Client ID',
+      exportName: `${labels.name()}-client-id`,
+    });
+
+    new CfnOutput(this, 'CognitoDomainUrl', {
+      value: `https://${userPoolDomain.domainName}.auth.${this.region}.amazoncognito.com`,
+      description: 'Cognito hosted UI domain URL',
+      exportName: `${labels.name()}-cognito-domain`,
+    });
+
+    new CfnOutput(this, 'IdentityPoolId', {
+      value: identityPool.ref,
+      description: 'Cognito Identity Pool ID',
+      exportName: `${labels.name()}-identity-pool-id`,
+    });
+
 
     // Enhanced CDK Nag suppressions for marketplace compliance
     this.addMarketplaceNagSuppressions(restApi, iamStack, s3NotificationStack, sageMakerStack);

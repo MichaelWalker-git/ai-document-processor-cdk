@@ -26,6 +26,8 @@ export interface StepFunctionsStackProps {
   readonly dataTable: Table;
   readonly securityGroup: SecurityGroup;
   readonly sageMakerEndpoint: string;
+  readonly smartyAuthId: string;
+  readonly smartyAuthToken: string;
 }
 
 export class StepFunctionsStack extends NestedStack {
@@ -40,6 +42,8 @@ export class StepFunctionsStack extends NestedStack {
   public readonly securityGroup: SecurityGroup;
   public readonly sageMakerEndpoint: string;
   public readonly sageMakerAsyncBucket: IBucket;
+  public readonly smartyAuthId: string;
+  public readonly smartyAuthToken: string;
 
   constructor(scope: Construct, id: string, props: StepFunctionsStackProps) {
     super(scope, id);
@@ -52,6 +56,8 @@ export class StepFunctionsStack extends NestedStack {
     this.securityGroup = props.securityGroup;
     this.sageMakerEndpoint = props.sageMakerEndpoint;
     this.sageMakerAsyncBucket = props.sageMakerAsyncBucket;
+    this.smartyAuthId = props.smartyAuthId;
+    this.smartyAuthToken = props.smartyAuthToken;
 
     // Log Groups ---------------------------------------------------------------------------------------------
     // Processing
@@ -130,8 +136,8 @@ export class StepFunctionsStack extends NestedStack {
     const fileProcessingLambda = fileProcessing(this, {
       TABLE_NAME: this.dataTable.tableName,
       OUTPUT_BUCKET: this.outputBucket.bucketName,
-      SMARTY_AUTH_ID: process.env.SMARTY_AUTH_ID || '',
-      SMARTY_AUTH_TOKEN: process.env.SMARTY_AUTH_TOKEN || '',
+      SMARTY_AUTH_ID: this.smartyAuthId,
+      SMARTY_AUTH_TOKEN: this.smartyAuthToken,
     }, this.lambdaRole, this.vpc, this.securityGroup);
 
     // Grant access to buckets ---------------------------------------------------------------------------------------------

@@ -16,8 +16,17 @@ const APP_LABEL = process.env.APP_LABEL || 'AiDocProcessor';
 const APP_REGION = process.env.APP_REGION || 'eu-central-1';
 const COMPLIANCE_FRAMEWORK = process.env.COMPLIANCE_FRAMEWORK || 'hipaa';
 
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@example.com';
+const ADMIN_FAMILY_NAME = process.env.ADMIN_FAMILY_NAME || 'Admin';
+const ADMIN_GIVEN_NAME = process.env.ADMIN_GIVEN_NAME || 'Super';
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173/';
+
+const SMARTY_AUTH_ID = process.env.SMARTY_AUTH_ID || '';
+const SMARTY_AUTH_TOKEN = process.env.SMARTY_AUTH_TOKEN || '';
+
+const HUGGINGFACE_HUB_TOKEN = process.env.HUGGINGFACE_HUB_TOKEN || '';
+
 // Marketplace-specific configuration
-const MARKETPLACE_VERSION = process.env.MARKETPLACE_VERSION || '1.0.0';
 const VENDOR_NAME = process.env.VENDOR_NAME || 'Horustech';
 
 const app = new cdk.App();
@@ -35,7 +44,15 @@ const labels = new Labels(
 const prodProps = {
   labels,
   complianceFramework: COMPLIANCE_FRAMEWORK,
-  description: `AI Document Processing Platform v${MARKETPLACE_VERSION} - AWS Marketplace Edition`,
+  description: 'AI Document Processing Platform',
+  adminEmail: ADMIN_EMAIL,
+  adminFamilyName: ADMIN_FAMILY_NAME,
+  adminGivenName: ADMIN_GIVEN_NAME,
+  clientUrl: CLIENT_URL,
+  vendorName: VENDOR_NAME,
+  smartyAuthId: SMARTY_AUTH_ID,
+  smartyAuthToken: SMARTY_AUTH_TOKEN,
+  huggingfaceHubToken: HUGGINGFACE_HUB_TOKEN,
   env: {
     region: CDK_DEFAULT_REGION,
     account: CDK_DEFAULT_ACCOUNT,
@@ -58,7 +75,6 @@ app.synth();
 
 // Log deployment information
 console.log('🚀 Marketplace CloudFormation Template Generation Complete!');
-console.log('🏷️  Version:', MARKETPLACE_VERSION);
 console.log('🌍 Region:', CDK_DEFAULT_REGION);
 console.log('🏢 Vendor:', VENDOR_NAME);
 console.log('🔒 Compliance:', COMPLIANCE_FRAMEWORK.toUpperCase());

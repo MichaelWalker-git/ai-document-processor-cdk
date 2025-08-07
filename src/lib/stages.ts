@@ -3,14 +3,22 @@ import { AwsSolutionsChecks, HIPAASecurityChecks, NIST80053R5Checks, PCIDSS321Ch
 import { Construct } from 'constructs';
 import { BackendAppStack } from './backend-app-stack';
 import { Labels } from '../shared';
-import { FrontendStack } from '../stacks/resources/FrontendStack';
-import { S3Stack } from '../stacks/resources/S3Stack';
+import { FrontendStack } from '../stacks/FrontendStack';
+import { S3Stack } from '../stacks/S3Stack';
 
 const REGION = process.env.CDK_DEFAULT_REGION || '';
 
 export interface StackInputs extends StackProps {
   readonly labels: Labels;
   readonly complianceFramework?: string;
+  readonly clientUrl: string;
+  readonly adminEmail: string;
+  readonly adminFamilyName: string;
+  readonly adminGivenName: string;
+  readonly vendorName: string;
+  readonly smartyAuthId: string;
+  readonly smartyAuthToken: string;
+  readonly huggingfaceHubToken: string;
 }
 
 export class ProdStage extends Stage {

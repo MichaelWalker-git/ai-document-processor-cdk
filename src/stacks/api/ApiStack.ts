@@ -7,9 +7,9 @@ import { IVpc, SecurityGroup } from 'aws-cdk-lib/aws-ec2';
 import { Key } from 'aws-cdk-lib/aws-kms';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
-import { Labels } from '../shared';
-import { getCdkConstructId } from '../shared/helpers';
-import { FileApiStack } from './api/File';
+import { FileApiStack } from './File';
+import { Labels } from '../../shared';
+import { getCdkConstructId } from '../../shared/helpers';
 
 export interface ApiStackProps {
   readonly labels: Labels;

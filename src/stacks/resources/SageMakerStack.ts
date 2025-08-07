@@ -23,6 +23,7 @@ export interface LlamaNemotronStackProps extends cdk.StackProps {
   readonly vpc: IVpc;
   readonly sageMakerAsyncBucket: IBucket;
   readonly labels: Labels;
+  readonly huggingfaceHubToken: string;
 }
 
 export class SageMakerStack extends NestedStack {
@@ -36,6 +37,7 @@ export class SageMakerStack extends NestedStack {
   public readonly initialInstanceCount?: number;
   public readonly removalPolicy = RemovalPolicy.DESTROY;
   public readonly sageMakerAsyncBucket: IBucket;
+  public readonly huggingfaceHubToken: string;
 
   constructor(scope: Construct, id: string, props: LlamaNemotronStackProps) {
     super(scope, id, props);
@@ -50,6 +52,7 @@ export class SageMakerStack extends NestedStack {
     this.instanceType = props?.instanceType || 'ml.g5.2xlarge';
     this.initialInstanceCount = props?.initialInstanceCount || 1;
     this.sageMakerAsyncBucket = props.sageMakerAsyncBucket;
+    this.huggingfaceHubToken = props.huggingfaceHubToken;
 
     // Security group
     const securityGroup = new SecurityGroup(scope, getCdkConstructId({ context: 'deploy-model-to-sagemaker', resourceName: 'security-group' }, this), {
@@ -150,7 +153,7 @@ export class SageMakerStack extends NestedStack {
       type: 'String',
       // noEcho: true, // hides it in the console
       description: 'HuggingFace Hub token for model access',
-      default: process.env.HUGGINGFACE_HUB_TOKEN || '',
+      default: this.huggingfaceHubToken || '',
     });
 
     // Lambdas

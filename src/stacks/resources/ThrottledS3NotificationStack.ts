@@ -1,4 +1,4 @@
-import { Duration, NestedStack, CfnOutput } from 'aws-cdk-lib';
+import { Duration, NestedStack } from 'aws-cdk-lib';
 import { Table } from 'aws-cdk-lib/aws-dynamodb';
 import { IVpc, SecurityGroup } from 'aws-cdk-lib/aws-ec2';
 import { Key } from 'aws-cdk-lib/aws-kms';
@@ -116,13 +116,6 @@ export class ThrottledS3NotificationStack extends NestedStack {
     this.processingQueue.grantConsumeMessages(this.startProcessingLambda);
     this.inputBucket.grantRead(this.startProcessingLambda);
     this.outputBucket.grantReadWrite(this.startProcessingLambda);
-
-    // Add monitoring outputs
-    new CfnOutput(this, 'ProcessingQueueUrl', {
-      value: this.processingQueue.queueUrl,
-      exportName: `${process.env.STAGE}-ProcessingQueueUrl`,
-      description: 'URL of the processing queue for throttling',
-    });
 
     // CDK Nag suppressions for your Lambda
     NagSuppressions.addResourceSuppressions(

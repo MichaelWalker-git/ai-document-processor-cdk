@@ -2,8 +2,8 @@ import { NestedStack, RemovalPolicy } from 'aws-cdk-lib';
 import { Key } from 'aws-cdk-lib/aws-kms';
 import { LogGroup } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
-import { getCdkConstructId } from '../shared/helpers';
-import { Labels } from '../shared/labels';
+import { getCdkConstructId } from '../../shared/helpers';
+import { Labels } from '../../shared/labels';
 
 interface IProps {
   kmsKey: Key;

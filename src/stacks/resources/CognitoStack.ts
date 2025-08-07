@@ -25,6 +25,10 @@ export interface CognitoStackProps {
   readonly outputBucket: IBucket;
   readonly kmsKey: Key;
   readonly labels: Labels;
+  readonly clientUrl: string;
+  readonly adminEmail: string;
+  readonly adminFamilyName: string;
+  readonly adminGivenName: string;
 }
 
 export class CognitoStack extends NestedStack {
@@ -39,6 +43,9 @@ export class CognitoStack extends NestedStack {
   public readonly inputBucket: IBucket;
   public readonly vpc: IVpc;
   public readonly outputBucket: IBucket;
+  public readonly adminEmail: string;
+  public readonly adminFamilyName: string;
+  public readonly adminGivenName: string;
 
   constructor(scope: Construct, id: string, props: CognitoStackProps) {
     super(scope, id);
@@ -47,8 +54,10 @@ export class CognitoStack extends NestedStack {
     this.inputBucket = props.inputBucket;
     this.outputBucket = props.outputBucket;
     this.vpc = props.vpc;
-
-    this.clientUrl = process.env.CLIENT_URL ? process.env.CLIENT_URL : 'http://localhost:5173/';
+    this.clientUrl = props.clientUrl;
+    this.adminEmail = props.adminEmail;
+    this.adminFamilyName = props.adminFamilyName;
+    this.adminGivenName = props.adminGivenName;
 
     // Cognito
     const cognitoUserPoolName = getCdkConstructId({ context: 'cognito', resourceName: 'user-pool' }, this);
@@ -186,15 +195,13 @@ export class CognitoStack extends NestedStack {
       securityGroups: [securityGroup],
     });
 
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
-
     const customResource = new CustomResource(this, getCdkConstructId({ context: 'cognito', resourceName: 'custom-resource' }, this), {
       serviceToken: customResourceProvider.serviceToken,
       properties: {
         UserPoolId: this.userPool.userPoolId,
-        FamilyName: process.env.ADMIN_FAMILY_NAME || 'Admin',
-        GivenName: process.env.ADMIN_GIVEN_NAME || 'Super',
-        Email: adminEmail,
+        FamilyName: this.adminFamilyName,
+        GivenName: this.adminGivenName,
+        Email: this.adminEmail,
         UserRole: USER_ROLES.SUPER_ADMIN,
         UpdateTimestamp: Date.now(),
         CreatedByName: 'System',

@@ -12,8 +12,8 @@ import { Bucket, IBucket } from 'aws-cdk-lib/aws-s3';
 import { Source, BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 import * as fsExtra from 'fs-extra';
-import { getCdkConstructId } from '../../shared/helpers';
-import { Labels } from '../../shared/labels';
+import { getCdkConstructId } from '../shared/helpers';
+import { Labels } from '../shared/labels';
 
 export interface FrontendStackProps {
   readonly labels: Labels;
@@ -29,7 +29,6 @@ export class FrontendStack extends cdk.Stack {
     const { labels } = args;
 
     const userPoolClientId = Fn.importValue(`${labels.name()}-client-id`);
-
     const apiUrl = Fn.importValue(`${labels.name()}-rest-api-uri`);
 
     this.websiteBucket = new Bucket(this, getCdkConstructId({ context: 'website', resourceName: 'websiteBucket' }, this), {

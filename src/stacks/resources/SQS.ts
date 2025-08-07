@@ -1,4 +1,4 @@
-import { CfnOutput, Duration, NestedStack } from 'aws-cdk-lib';
+import { Duration, NestedStack } from 'aws-cdk-lib';
 import { AnyPrincipal, Effect, PolicyStatement, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { Key } from 'aws-cdk-lib/aws-kms';
 import { Queue } from 'aws-cdk-lib/aws-sqs';
@@ -75,13 +75,5 @@ export class SqsStack extends NestedStack {
     // Add SSL enforcement to both queues
     this.processingQueue.addToResourcePolicy(sslEnforcementStatement);
     dlq.addToResourcePolicy(sslEnforcementStatement);
-
-    // Add monitoring outputs
-
-    new CfnOutput(this, 'ProcessingQueueArn', {
-      value: this.processingQueue.queueArn,
-      exportName: 'ProcessingQueueArn',
-      description: 'URL of the processing queue for throttling',
-    });
   }
 }

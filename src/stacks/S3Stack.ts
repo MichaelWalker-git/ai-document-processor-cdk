@@ -5,11 +5,9 @@ import { Key } from 'aws-cdk-lib/aws-kms';
 import { BlockPublicAccess, Bucket, BucketEncryption, CorsRule, HttpMethods } from 'aws-cdk-lib/aws-s3';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
-import { KmsStack } from './KmsStack';
-import { Labels } from '../../shared';
-import { createDefaultLambdaRole, getCdkConstructId, getPolicyStatement } from '../../shared/helpers';
-
-const IS_CDK_DEPLOY = process.env.DEPLOYMENT_TYPE === 'CDK';
+import { Labels } from '../shared';
+import { KmsStack } from './resources/KmsStack';
+import { createDefaultLambdaRole, getCdkConstructId, getPolicyStatement } from '../shared/helpers';
 
 export interface S3StackProps {
   readonly labels: Labels;
@@ -45,7 +43,7 @@ export class S3Stack extends cdk.Stack {
       encryption: BucketEncryption.KMS,
       versioned: true,
       enforceSSL: true,
-      autoDeleteObjects: IS_CDK_DEPLOY && this.removalPolicy === RemovalPolicy.DESTROY,
+      autoDeleteObjects: this.removalPolicy === RemovalPolicy.DESTROY,
     });
 
     loggingBucket.addToResourcePolicy(
@@ -74,7 +72,7 @@ export class S3Stack extends cdk.Stack {
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       enforceSSL: true,
       notificationsHandlerRole: inputBucketNotificationRole,
-      autoDeleteObjects: IS_CDK_DEPLOY && this.removalPolicy === RemovalPolicy.DESTROY,
+      autoDeleteObjects: this.removalPolicy === RemovalPolicy.DESTROY,
     });
 
     this.inputBucket.addToResourcePolicy(
@@ -115,7 +113,7 @@ export class S3Stack extends cdk.Stack {
       serverAccessLogsPrefix: 'outputBucketLogs/',
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       enforceSSL: true,
-      autoDeleteObjects: IS_CDK_DEPLOY && this.removalPolicy === RemovalPolicy.DESTROY,
+      autoDeleteObjects: this.removalPolicy === RemovalPolicy.DESTROY,
     });
 
     this.outputBucket.addToResourcePolicy(
@@ -139,7 +137,7 @@ export class S3Stack extends cdk.Stack {
       serverAccessLogsPrefix: 'sageMakerAsyncBucketLogs/',
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       enforceSSL: true,
-      autoDeleteObjects: IS_CDK_DEPLOY && this.removalPolicy === RemovalPolicy.DESTROY,
+      autoDeleteObjects: this.removalPolicy === RemovalPolicy.DESTROY,
     });
 
     this.sageMakerAsyncBucket.addToResourcePolicy(
@@ -155,37 +153,37 @@ export class S3Stack extends cdk.Stack {
     );
 
     // Outputs
-    const exportInputBucketName = 'ExportInputBucketName';
+    const exportInputBucketName = `${labels.name()}-input-bucket-name`;
     new CfnOutput(this, exportInputBucketName, {
       value: this.inputBucket.bucketName,
       exportName: exportInputBucketName,
     });
 
-    const exportInputBucketArn = 'ExportInputBucketArn';
+    const exportInputBucketArn = `${labels.name()}-input-bucket-arn`;
     new CfnOutput(this, exportInputBucketArn, {
       value: this.inputBucket.bucketArn,
       exportName: exportInputBucketArn,
     });
 
-    const exportOutputBucketName = 'ExportOutputBucketName';
+    const exportOutputBucketName = `${labels.name()}-output-bucket-name`;
     new CfnOutput(this, exportOutputBucketName, {
       value: this.outputBucket.bucketName,
       exportName: exportOutputBucketName,
     });
 
-    const exportOutputBucketArn = 'ExportOutputBucketArn';
+    const exportOutputBucketArn = `${labels.name()}-output-bucket-arn`;
     new CfnOutput(this, exportOutputBucketArn, {
       value: this.outputBucket.bucketArn,
       exportName: exportOutputBucketArn,
     });
 
-    const exportSageMakerAsyncBucketName = 'ExportSageMakerAsyncBucketName';
+    const exportSageMakerAsyncBucketName = `${labels.name()}-sagemaker-async-bucket-name`;
     new CfnOutput(this, exportSageMakerAsyncBucketName, {
       value: this.sageMakerAsyncBucket.bucketName,
       exportName: exportSageMakerAsyncBucketName,
     });
 
-    const exportSageMakerAsyncBucketArn = 'ExportSageMakerAsyncBucketArn';
+    const exportSageMakerAsyncBucketArn = `${labels.name()}-sagemaker-async-bucket-arn`;
     new CfnOutput(this, exportSageMakerAsyncBucketArn, {
       value: this.sageMakerAsyncBucket.bucketArn,
       exportName: exportSageMakerAsyncBucketArn,
