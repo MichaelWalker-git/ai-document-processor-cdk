@@ -1,5 +1,5 @@
 import { execSync, ExecSyncOptions } from 'child_process';
-import { DockerImage, CfnOutput, RemovalPolicy, Fn } from 'aws-cdk-lib';
+import { DockerImage, CfnOutput, Stack, RemovalPolicy, Fn } from 'aws-cdk-lib';
 import * as cdk from 'aws-cdk-lib';
 import {
   Distribution,
@@ -12,7 +12,8 @@ import { Bucket, IBucket } from 'aws-cdk-lib/aws-s3';
 import { Source, BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 import * as fsExtra from 'fs-extra';
-import { getCdkConstructId, Labels } from '../../shared';
+import { getCdkConstructId } from '../../shared/helpers';
+import { Labels } from '../../shared/labels';
 
 export interface FrontendStackProps {
   readonly labels: Labels;
@@ -27,11 +28,7 @@ export class FrontendStack extends cdk.Stack {
 
     const { labels } = args;
 
-    const cognitoUserPoolId = Fn.importValue(`${labels.name()}-CognitoUserPoolId`);
-
     const userPoolClientId = Fn.importValue(`${labels.name()}-client-id`);
-
-    const identityPoolId = Fn.importValue(`${labels.name()}-identity-pool-id`);
 
     const apiUrl = Fn.importValue(`${labels.name()}-rest-api-uri`);
 
@@ -54,7 +51,7 @@ export class FrontendStack extends cdk.Stack {
     });
     const execOptions: ExecSyncOptions = { stdio: 'inherit' };
 
-    const bundle = Source.asset('../client-app', {
+    const bundle = Source.asset('../../client-app', {
       bundling: {
         command: [
           'sh',
@@ -66,11 +63,11 @@ export class FrontendStack extends cdk.Stack {
           /* istanbul ignore next */
           tryBundle(outputDir: string) {
             execSync(
-              'cd ../client-app && npm install --legacy-peer-deps && npm run build',
+              'cd ../../client-app && npm install --legacy-peer-deps && npm run build',
               execOptions,
             );
 
-            fsExtra.copySync('../client-app/dist', outputDir, {
+            fsExtra.copySync('../../client-app/dist', outputDir, {
               ...execOptions,
               // @ts-ignore
               recursive: true,
@@ -83,8 +80,7 @@ export class FrontendStack extends cdk.Stack {
 
     const config = {
       API_ENDPOINT: apiUrl,
-      IDENTITY_POOL_ID: identityPoolId,
-      USER_POOL_ID: cognitoUserPoolId,
+      AWS_REGION: Stack.of(this).region,
       USER_POOL_CLIENT_ID: userPoolClientId,
     };
 
@@ -102,3 +98,4 @@ export class FrontendStack extends cdk.Stack {
     new CfnOutput(this, 'siteBucket', { value: this.websiteBucket.bucketName });
   }
 }
+

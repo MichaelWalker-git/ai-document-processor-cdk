@@ -2,8 +2,8 @@ import { Aspects, StackProps, Stage, Tags } from 'aws-cdk-lib';
 import { AwsSolutionsChecks, HIPAASecurityChecks, NIST80053R5Checks, PCIDSS321Checks } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { BackendAppStack } from './backend-app-stack';
-// import { FrontendStack } from '../stacks/resources/FrontendStack';
 import { Labels } from '../shared';
+import { FrontendStack } from '../stacks/resources/FrontendStack';
 import { S3Stack } from '../stacks/resources/S3Stack';
 
 const REGION = process.env.CDK_DEFAULT_REGION || '';
@@ -38,8 +38,8 @@ export class ProdStage extends Stage {
       },
     );
 
-    // const frontendStack = new FrontendStack(this, `${args.labels.name()}-FrontEnd-Stack`, args);
-    // frontendStack.addDependency(backendAppStack);
+    const frontendStack = new FrontendStack(this, `${args.labels.name()}-FrontEnd-Stack`, args);
+    frontendStack.addDependency(backendAppStack);
 
     // Apply comprehensive compliance checks based on configuration
     this.addComplianceChecks(backendAppStack, args.complianceFramework);

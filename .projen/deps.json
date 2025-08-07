@@ -130,6 +130,11 @@
       "type": "build"
     },
     {
+      "name": "vite",
+      "version": "5",
+      "type": "build"
+    },
+    {
       "name": "@aws-cdk/aws-scheduler-alpha",
       "version": "2.186.0-alpha.0",
       "type": "bundled"

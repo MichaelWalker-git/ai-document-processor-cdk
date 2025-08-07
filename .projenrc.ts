@@ -20,7 +20,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   majorVersion: 1,
 
   packageManager: javascript.NodePackageManager.NPM,
-
   // Keywords for npm discovery
   keywords: [
     'aws',
@@ -111,6 +110,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'ts-jest',
     'ts-node',
     'typescript',
+    'vite@5',
   ],
 
   // Peer dependencies (these will be required by consumers)
@@ -185,6 +185,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   stability: 'stable',
 });
 
+project.compileTask.exec('tsc --project tsconfig.client-app.json');
 
 // Add custom tasks
 project.addTask('package:all', {
@@ -219,11 +220,6 @@ project.eslint?.addRules({
       varsIgnorePattern: '^_',
     },
   ],
-});
-
-project.addTask('install:lock', {
-  description: 'Install with lockfile',
-  exec: 'npm install',
 });
 
 project.addDeps('fs-extra');
