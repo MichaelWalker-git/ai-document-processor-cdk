@@ -1,3 +1,5 @@
+import * as path from 'path';
+import * as fs from 'fs';
 import { Duration } from 'aws-cdk-lib';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunctionProps } from 'aws-cdk-lib/aws-lambda-nodejs';
@@ -19,10 +21,19 @@ export const CORS = {
 
 
 // Lambda
+// Dynamically resolve depsLockFilePath
+const lockFileCandidates = [
+  path.resolve(__dirname, '../../../package-lock.json'),
+  path.resolve(__dirname, '../../package-lock.json'),
+];
+
+const depsLockFilePath = lockFileCandidates.find(fs.existsSync);
+
 export const DEFAULT_PROPS: NodejsFunctionProps = {
   runtime: Runtime.NODEJS_22_X,
   memorySize: 512,
   timeout: Duration.minutes(5),
+  depsLockFilePath,
   handler: 'handler',
   bundling: {
     externalModules: ['aws-sdk'],
