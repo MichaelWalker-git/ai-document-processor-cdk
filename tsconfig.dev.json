@@ -32,7 +32,6 @@
     "projenrc/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "client-app/**/*"
+    "node_modules"
   ]
 }

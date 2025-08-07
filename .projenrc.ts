@@ -222,8 +222,7 @@ project.eslint?.addRules({
   ],
 });
 
-project.tsconfig?.addExclude('client-app/**/*');
-project.tsconfigDev?.addExclude('client-app/**/*');
+
 project.npmignore?.addPatterns('client-app/', '!client-app/build/**'); // Optional: keep build output
 project.gitignore?.addPatterns('client-app/node_modules/', 'client-app/dist/');
 
