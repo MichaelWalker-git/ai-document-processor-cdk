@@ -222,6 +222,18 @@ project.eslint?.addRules({
   ],
 });
 
+project.tsconfig?.addExclude('client-app/**/*');
+project.tsconfigDev?.addExclude('client-app/**/*');
+project.npmignore?.addPatterns('client-app/', '!client-app/build/**'); // Optional: keep build output
+project.gitignore?.addPatterns('client-app/node_modules/', 'client-app/dist/');
+
+const task = project.addTask('build:client-app', {
+  description: 'Build React app',
+  exec: 'cd client-app && npm install --legacy-peer-deps && npm run build',
+});
+
+project.compileTask.prependSpawn(task);
+
 project.addDeps('fs-extra');
 
 project.synth();

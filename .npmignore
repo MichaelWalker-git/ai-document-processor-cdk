@@ -19,6 +19,8 @@ dist
 tsconfig.tsbuildinfo
 /.eslintrc.json
 !.jsii
+client-app/
+!client-app/build/**
 /.gitattributes
 /.projenrc.ts
 /projenrc

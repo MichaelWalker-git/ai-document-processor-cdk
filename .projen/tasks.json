@@ -24,6 +24,15 @@
         }
       ]
     },
+    "build:client-app": {
+      "name": "build:client-app",
+      "description": "Build React app",
+      "steps": [
+        {
+          "exec": "cd client-app && npm install --legacy-peer-deps && npm run build"
+        }
+      ]
+    },
     "build:watch": {
       "name": "build:watch",
       "steps": [
@@ -95,6 +104,9 @@
       "name": "compile",
       "description": "Only compile",
       "steps": [
+        {
+          "spawn": "build:client-app"
+        },
         {
           "exec": "jsii --silence-warnings=reserved-word"
         },
