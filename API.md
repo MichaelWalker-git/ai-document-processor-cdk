@@ -4036,8 +4036,6 @@ const stackInputs: StackInputs = { ... }
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.clientUrl">clientUrl</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.huggingfaceHubToken">huggingfaceHubToken</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.labels">labels</a></code> | <code><a href="#@horustech/ai-document-processor-cdk.Labels">Labels</a></code> | *No description.* |
-| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.smartyAuthId">smartyAuthId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.smartyAuthToken">smartyAuthToken</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.vendorName">vendorName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.complianceFramework">complianceFramework</a></code> | <code>string</code> | *No description.* |
 
@@ -4347,26 +4345,6 @@ public readonly labels: Labels;
 
 ---
 
-##### `smartyAuthId`<sup>Required</sup> <a name="smartyAuthId" id="@horustech/ai-document-processor-cdk.StackInputs.property.smartyAuthId"></a>
-
-```typescript
-public readonly smartyAuthId: string;
-```
-
-- *Type:* string
-
----
-
-##### `smartyAuthToken`<sup>Required</sup> <a name="smartyAuthToken" id="@horustech/ai-document-processor-cdk.StackInputs.property.smartyAuthToken"></a>
-
-```typescript
-public readonly smartyAuthToken: string;
-```
-
-- *Type:* string
-
----
-
 ##### `vendorName`<sup>Required</sup> <a name="vendorName" id="@horustech/ai-document-processor-cdk.StackInputs.property.vendorName"></a>
 
 ```typescript
@@ -4407,8 +4385,6 @@ const stackProps: StackProps = { ... }
 | <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.clientUrl">clientUrl</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.huggingfaceHubToken">huggingfaceHubToken</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.labels">labels</a></code> | <code><a href="#@horustech/ai-document-processor-cdk.Labels">Labels</a></code> | *No description.* |
-| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.smartyAuthId">smartyAuthId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.smartyAuthToken">smartyAuthToken</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.vendorName">vendorName</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -4470,26 +4446,6 @@ public readonly labels: Labels;
 ```
 
 - *Type:* <a href="#@horustech/ai-document-processor-cdk.Labels">Labels</a>
-
----
-
-##### `smartyAuthId`<sup>Required</sup> <a name="smartyAuthId" id="@horustech/ai-document-processor-cdk.StackProps.property.smartyAuthId"></a>
-
-```typescript
-public readonly smartyAuthId: string;
-```
-
-- *Type:* string
-
----
-
-##### `smartyAuthToken`<sup>Required</sup> <a name="smartyAuthToken" id="@horustech/ai-document-processor-cdk.StackProps.property.smartyAuthToken"></a>
-
-```typescript
-public readonly smartyAuthToken: string;
-```
-
-- *Type:* string
 
 ---
 

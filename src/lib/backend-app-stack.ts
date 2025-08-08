@@ -33,8 +33,6 @@ export interface StackProps {
   readonly adminFamilyName: string;
   readonly adminGivenName: string;
   readonly vendorName: string;
-  readonly smartyAuthId: string;
-  readonly smartyAuthToken: string;
   readonly huggingfaceHubToken: string;
 }
 
@@ -47,8 +45,6 @@ export class BackendAppStack extends cdk.Stack {
     const adminEmail = args.adminEmail;
     const adminFamilyName = args.adminFamilyName;
     const adminGivenName = args.adminGivenName;
-    const smartyAuthId = args.smartyAuthId;
-    const smartyAuthToken = args.smartyAuthToken;
     const huggingfaceHubToken = args.huggingfaceHubToken;
 
     const importInputBucketName = `${labels.name()}-input-bucket-name`;
@@ -128,8 +124,6 @@ export class BackendAppStack extends cdk.Stack {
       dataTable,
       securityGroup: securityGroupStepFunctions,
       sageMakerEndpoint: endpointName,
-      smartyAuthId,
-      smartyAuthToken,
     });
     const { stateMachine } = stepFunctionsStack;
 

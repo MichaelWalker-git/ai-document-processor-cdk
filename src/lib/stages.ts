@@ -16,8 +16,6 @@ export interface StackInputs extends StackProps {
   readonly adminFamilyName: string;
   readonly adminGivenName: string;
   readonly vendorName: string;
-  readonly smartyAuthId: string;
-  readonly smartyAuthToken: string;
   readonly huggingfaceHubToken: string;
 }
 

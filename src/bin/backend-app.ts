@@ -21,9 +21,6 @@ const ADMIN_FAMILY_NAME = process.env.ADMIN_FAMILY_NAME || 'Admin';
 const ADMIN_GIVEN_NAME = process.env.ADMIN_GIVEN_NAME || 'Super';
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173/';
 
-const SMARTY_AUTH_ID = process.env.SMARTY_AUTH_ID || '';
-const SMARTY_AUTH_TOKEN = process.env.SMARTY_AUTH_TOKEN || '';
-
 const HUGGINGFACE_HUB_TOKEN = process.env.HUGGINGFACE_HUB_TOKEN || '';
 
 // Marketplace-specific configuration
@@ -50,8 +47,6 @@ const prodProps = {
   adminGivenName: ADMIN_GIVEN_NAME,
   clientUrl: CLIENT_URL,
   vendorName: VENDOR_NAME,
-  smartyAuthId: SMARTY_AUTH_ID,
-  smartyAuthToken: SMARTY_AUTH_TOKEN,
   huggingfaceHubToken: HUGGINGFACE_HUB_TOKEN,
   env: {
     region: CDK_DEFAULT_REGION,
