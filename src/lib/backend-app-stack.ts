@@ -255,16 +255,6 @@ export class BackendAppStack extends cdk.Stack {
           Principal: '*',
           Action: 'execute-api:Invoke',
           Resource: 'arn:aws:execute-api:*:*:*',
-          Condition: {
-            IpAddress: {
-              'aws:SourceIp': [
-                // Add your allowed IP ranges here
-                '10.0.0.0/8',
-                '172.16.0.0/12',
-                '192.168.0.0/16',
-              ],
-            },
-          },
         },
       ],
     };
