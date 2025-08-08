@@ -189,7 +189,6 @@ export class BackendAppStack extends cdk.Stack {
         accessLogDestination: new LogGroupLogDestination(restApiLogGroup),
         accessLogFormat: AccessLogFormat.jsonWithStandardFields(),
       },
-      policy: this.createRestrictiveApiPolicy(),
     });
 
     const stackProps = {
@@ -243,21 +242,6 @@ export class BackendAppStack extends cdk.Stack {
 
     // Enhanced CDK Nag suppressions for marketplace compliance
     this.addMarketplaceNagSuppressions(restApi, iamStack, s3NotificationStack, sageMakerStack);
-  }
-
-  private createRestrictiveApiPolicy(): any {
-    // Create a more restrictive API Gateway resource policy for HIPAA compliance
-    return {
-      Version: '2012-10-17',
-      Statement: [
-        {
-          Effect: 'Allow',
-          Principal: '*',
-          Action: 'execute-api:Invoke',
-          Resource: 'arn:aws:execute-api:*:*:*',
-        },
-      ],
-    };
   }
 
   private addMarketplaceNagSuppressions(

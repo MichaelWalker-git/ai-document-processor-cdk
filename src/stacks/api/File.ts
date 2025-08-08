@@ -168,7 +168,6 @@ export class FileApiStack extends NestedStack {
     // Authorizer
     const authorizer = new CognitoUserPoolsAuthorizer(this, getCdkConstructId({ context: 'cognito', resourceName: 'authorizer' }, scope), {
       cognitoUserPools: [props.userPool],
-      identitySource: 'method.request.header.Authorization',
     });
 
     // Endpoints
