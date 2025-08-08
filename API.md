@@ -1906,7 +1906,6 @@ new ProdStage(scope: Construct, id: string, args: StackInputs, props?: StackProp
 | --- | --- |
 | <code><a href="#@horustech/ai-document-processor-cdk.ProdStage.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#@horustech/ai-document-processor-cdk.ProdStage.synth">synth</a></code> | Synthesize this stage into a cloud assembly. |
-| <code><a href="#@horustech/ai-document-processor-cdk.ProdStage.getMarketplaceOutputs">getMarketplaceOutputs</a></code> | Get the main stack outputs for marketplace documentation. |
 
 ---
 
@@ -1932,20 +1931,6 @@ calls will return the same assembly.
 ###### `options`<sup>Optional</sup> <a name="options" id="@horustech/ai-document-processor-cdk.ProdStage.synth.parameter.options"></a>
 
 - *Type:* aws-cdk-lib.StageSynthesisOptions
-
----
-
-##### `getMarketplaceOutputs` <a name="getMarketplaceOutputs" id="@horustech/ai-document-processor-cdk.ProdStage.getMarketplaceOutputs"></a>
-
-```typescript
-public getMarketplaceOutputs(backendAppStack: BackendAppStack): {[ key: string ]: string}
-```
-
-Get the main stack outputs for marketplace documentation.
-
-###### `backendAppStack`<sup>Required</sup> <a name="backendAppStack" id="@horustech/ai-document-processor-cdk.ProdStage.getMarketplaceOutputs.parameter.backendAppStack"></a>
-
-- *Type:* <a href="#@horustech/ai-document-processor-cdk.BackendAppStack">BackendAppStack</a>
 
 ---
 
