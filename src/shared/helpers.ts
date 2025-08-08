@@ -3,7 +3,7 @@ import { FlowLog, FlowLogDestination, FlowLogResourceType, Vpc } from 'aws-cdk-l
 import { IPrincipal, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { Key } from 'aws-cdk-lib/aws-kms';
-import { LogGroup } from 'aws-cdk-lib/aws-logs';
+import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 
 export const getCdkConstructId = (
@@ -105,11 +105,11 @@ export const createVpcCloudwatchLogs = ({
   vpc: Vpc;
   kmsKey: Key;
   removalPolicy?: RemovalPolicy;
-}): {flowLog: FlowLog; flowLogRole: Role} => {
+}): { flowLog: FlowLog; flowLogRole: Role } => {
   const logGroup = new LogGroup(scope, getCdkConstructId({ context: 'vpc-flow', resourceName: 'log-group' }, scope), {
-    logGroupName: getCdkConstructId({ context: 'vpc-flow', resourceName: 'log-group', addId: true }, scope),
     removalPolicy: removalPolicy,
     encryptionKey: kmsKey,
+    retention: RetentionDays.ONE_WEEK,
   });
 
   const managedPolicy = getPolicyStatement({
