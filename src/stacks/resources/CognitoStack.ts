@@ -130,6 +130,9 @@ export class CognitoStack extends NestedStack {
         callbackUrls: [this.clientUrl],
         logoutUrls: [this.clientUrl],
       },
+      authFlows: {
+        userPassword: true,
+      },
     });
 
     this.identityPool = new CfnIdentityPool(this, getCdkConstructId({ context: 'cognito', resourceName: 'identity-pool' }, this), {
@@ -284,3 +287,4 @@ export class CognitoStack extends NestedStack {
     );
   }
 }
+
