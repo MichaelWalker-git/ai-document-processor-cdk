@@ -4045,7 +4045,15 @@ const stackInputs: StackInputs = { ... }
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags that will be applied to the Stack. |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.adminEmail">adminEmail</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.adminFamilyName">adminFamilyName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.adminGivenName">adminGivenName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.clientUrl">clientUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.huggingfaceHubToken">huggingfaceHubToken</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.labels">labels</a></code> | <code><a href="#@horustech/ai-document-processor-cdk.Labels">Labels</a></code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.smartyAuthId">smartyAuthId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.smartyAuthToken">smartyAuthToken</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.vendorName">vendorName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackInputs.property.complianceFramework">complianceFramework</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -4294,6 +4302,56 @@ Whether to enable termination protection for this stack.
 
 ---
 
+##### `adminEmail`<sup>Required</sup> <a name="adminEmail" id="@horustech/ai-document-processor-cdk.StackInputs.property.adminEmail"></a>
+
+```typescript
+public readonly adminEmail: string;
+```
+
+- *Type:* string
+
+---
+
+##### `adminFamilyName`<sup>Required</sup> <a name="adminFamilyName" id="@horustech/ai-document-processor-cdk.StackInputs.property.adminFamilyName"></a>
+
+```typescript
+public readonly adminFamilyName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `adminGivenName`<sup>Required</sup> <a name="adminGivenName" id="@horustech/ai-document-processor-cdk.StackInputs.property.adminGivenName"></a>
+
+```typescript
+public readonly adminGivenName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `clientUrl`<sup>Required</sup> <a name="clientUrl" id="@horustech/ai-document-processor-cdk.StackInputs.property.clientUrl"></a>
+
+```typescript
+public readonly clientUrl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `huggingfaceHubToken`<sup>Required</sup> <a name="huggingfaceHubToken" id="@horustech/ai-document-processor-cdk.StackInputs.property.huggingfaceHubToken"></a>
+
+```typescript
+public readonly huggingfaceHubToken: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `labels`<sup>Required</sup> <a name="labels" id="@horustech/ai-document-processor-cdk.StackInputs.property.labels"></a>
 
 ```typescript
@@ -4301,6 +4359,36 @@ public readonly labels: Labels;
 ```
 
 - *Type:* <a href="#@horustech/ai-document-processor-cdk.Labels">Labels</a>
+
+---
+
+##### `smartyAuthId`<sup>Required</sup> <a name="smartyAuthId" id="@horustech/ai-document-processor-cdk.StackInputs.property.smartyAuthId"></a>
+
+```typescript
+public readonly smartyAuthId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `smartyAuthToken`<sup>Required</sup> <a name="smartyAuthToken" id="@horustech/ai-document-processor-cdk.StackInputs.property.smartyAuthToken"></a>
+
+```typescript
+public readonly smartyAuthToken: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vendorName`<sup>Required</sup> <a name="vendorName" id="@horustech/ai-document-processor-cdk.StackInputs.property.vendorName"></a>
+
+```typescript
+public readonly vendorName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -4328,7 +4416,65 @@ const stackProps: StackProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.adminEmail">adminEmail</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.adminFamilyName">adminFamilyName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.adminGivenName">adminGivenName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.clientUrl">clientUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.huggingfaceHubToken">huggingfaceHubToken</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.labels">labels</a></code> | <code><a href="#@horustech/ai-document-processor-cdk.Labels">Labels</a></code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.smartyAuthId">smartyAuthId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.smartyAuthToken">smartyAuthToken</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@horustech/ai-document-processor-cdk.StackProps.property.vendorName">vendorName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `adminEmail`<sup>Required</sup> <a name="adminEmail" id="@horustech/ai-document-processor-cdk.StackProps.property.adminEmail"></a>
+
+```typescript
+public readonly adminEmail: string;
+```
+
+- *Type:* string
+
+---
+
+##### `adminFamilyName`<sup>Required</sup> <a name="adminFamilyName" id="@horustech/ai-document-processor-cdk.StackProps.property.adminFamilyName"></a>
+
+```typescript
+public readonly adminFamilyName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `adminGivenName`<sup>Required</sup> <a name="adminGivenName" id="@horustech/ai-document-processor-cdk.StackProps.property.adminGivenName"></a>
+
+```typescript
+public readonly adminGivenName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `clientUrl`<sup>Required</sup> <a name="clientUrl" id="@horustech/ai-document-processor-cdk.StackProps.property.clientUrl"></a>
+
+```typescript
+public readonly clientUrl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `huggingfaceHubToken`<sup>Required</sup> <a name="huggingfaceHubToken" id="@horustech/ai-document-processor-cdk.StackProps.property.huggingfaceHubToken"></a>
+
+```typescript
+public readonly huggingfaceHubToken: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -4339,6 +4485,36 @@ public readonly labels: Labels;
 ```
 
 - *Type:* <a href="#@horustech/ai-document-processor-cdk.Labels">Labels</a>
+
+---
+
+##### `smartyAuthId`<sup>Required</sup> <a name="smartyAuthId" id="@horustech/ai-document-processor-cdk.StackProps.property.smartyAuthId"></a>
+
+```typescript
+public readonly smartyAuthId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `smartyAuthToken`<sup>Required</sup> <a name="smartyAuthToken" id="@horustech/ai-document-processor-cdk.StackProps.property.smartyAuthToken"></a>
+
+```typescript
+public readonly smartyAuthToken: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vendorName`<sup>Required</sup> <a name="vendorName" id="@horustech/ai-document-processor-cdk.StackProps.property.vendorName"></a>
+
+```typescript
+public readonly vendorName: string;
+```
+
+- *Type:* string
 
 ---
 
