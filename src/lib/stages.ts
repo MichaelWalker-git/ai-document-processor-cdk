@@ -51,9 +51,6 @@ export class ProdStage extends Stage {
 
     // Apply comprehensive compliance checks based on configuration
     this.addComplianceChecks(backendAppStack, args.complianceFramework);
-
-    // Add marketplace-specific resource tags
-    this.addMarketplaceResourceTags(backendAppStack);
   }
 
   private addComplianceChecks(backendAppStack: BackendAppStack, framework?: string): void {
@@ -91,48 +88,5 @@ export class ProdStage extends Stage {
         Tags.of(this).add('ComplianceFramework', 'HIPAA-Default');
         break;
     }
-  }
-
-  private addMarketplaceResourceTags(backendAppStack: BackendAppStack): void {
-    const commonTags = {
-      'aws-marketplace:product': 'ai-document-processing-platform',
-      'aws-marketplace:version': '1.0.0',
-      'cost-center': 'marketplace-product',
-      'environment': 'production',
-      'auto-scaling': 'enabled',
-      'backup-required': 'true',
-      'monitoring-required': 'true',
-    };
-
-    Object.entries(commonTags).forEach(([key, value]) => {
-      Tags.of(backendAppStack).add(key, value);
-    });
-
-    // Add component-specific tags
-    Tags.of(backendAppStack).add('component:api-gateway', 'regional-endpoint');
-    Tags.of(backendAppStack).add('component:sagemaker', 'ml-inference');
-    Tags.of(backendAppStack).add('component:cognito', 'user-authentication');
-    Tags.of(backendAppStack).add('component:s3', 'data-storage');
-    Tags.of(backendAppStack).add('component:dynamodb', 'metadata-storage');
-    Tags.of(backendAppStack).add('component:stepfunctions', 'workflow-orchestration');
-    Tags.of(backendAppStack).add('component:vpc', 'network-isolation');
-    Tags.of(backendAppStack).add('component:kms', 'encryption-at-rest');
-  }
-
-  /**
-   * Get the main stack outputs for marketplace documentation
-   */
-  public getMarketplaceOutputs(backendAppStack: BackendAppStack): Record<string, string> {
-    return {
-      'Application Name': backendAppStack.stackName,
-      'API Gateway URL': 'Available in CloudFormation outputs',
-      'Cognito User Pool': 'Available in CloudFormation outputs',
-      'S3 Buckets': 'Input and output buckets created',
-      'SageMaker Endpoint': 'AI inference endpoint deployed',
-      'VPC Configuration': 'Private subnets with NAT gateway',
-      'Encryption': 'Customer-managed KMS keys',
-      'Monitoring': 'CloudWatch and X-Ray enabled',
-      'Compliance': 'Multiple frameworks supported',
-    };
   }
 }

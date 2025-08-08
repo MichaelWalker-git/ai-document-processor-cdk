@@ -48,7 +48,7 @@ export class SageMakerStack extends NestedStack {
     this.modelName = props?.modelName || '';
     this.endpointName = props?.endpointName || '';
     this.modelId = props?.modelId || '';
-    this.inferenceType = props?.inferenceType;
+    this.inferenceType = props?.inferenceType || 'ASYNC';
     this.instanceType = props?.instanceType || 'ml.g5.2xlarge';
     this.initialInstanceCount = props?.initialInstanceCount || 1;
     this.sageMakerAsyncBucket = props.sageMakerAsyncBucket;
@@ -176,7 +176,7 @@ export class SageMakerStack extends NestedStack {
         HF_MODEL_ID: this.modelId, // 'nvidia/Llama-3.1-Nemotron-Nano-8B-v1', // 'Qwen/Qwen2.5-VL-7B-Instruct'
         INSTANCE_TYPE: this.instanceType,
         INSTANCE_COUNT: this.initialInstanceCount.toString(),
-        INFERENCE_TYPE: this.inferenceType || 'SYNC',
+        INFERENCE_TYPE: this.inferenceType,
         ASYNC_S3_BUCKET: this.sageMakerAsyncBucket.bucketName,
       },
     });

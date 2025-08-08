@@ -111,7 +111,9 @@ export class BackendAppStack extends cdk.Stack {
       kmsKey,
       vpc,
       sageMakerAsyncBucket,
+      instanceType: 'ml.g5.2xlarge',
       inferenceType: 'ASYNC',
+      initialInstanceCount: 1,
       labels: labels,
       huggingfaceHubToken,
     });
