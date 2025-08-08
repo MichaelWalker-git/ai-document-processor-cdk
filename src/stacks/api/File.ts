@@ -168,6 +168,7 @@ export class FileApiStack extends NestedStack {
     // Authorizer
     const authorizer = new CognitoUserPoolsAuthorizer(this, getCdkConstructId({ context: 'cognito', resourceName: 'authorizer' }, scope), {
       cognitoUserPools: [props.userPool],
+      identitySource: 'method.request.header.Authorization',
     });
 
     // Endpoints
@@ -184,7 +185,6 @@ export class FileApiStack extends NestedStack {
         },
       ],
       requestParameters: {
-        'method.request.path.folder': true,
         'method.request.header.Content-Type': true,
       },
     });
@@ -202,7 +202,6 @@ export class FileApiStack extends NestedStack {
         },
       ],
       requestParameters: {
-        'method.request.path.folder': true,
         'method.request.header.Content-Type': true,
       },
     });
@@ -219,7 +218,6 @@ export class FileApiStack extends NestedStack {
         },
       ],
       requestParameters: {
-        'method.request.path.folder': true,
         'method.request.header.Content-Type': true,
       },
     });
